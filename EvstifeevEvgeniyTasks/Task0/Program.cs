@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EvstifeevEvgeniyTasks
+namespace Task0
 {
     class Program
     {
@@ -47,10 +47,10 @@ namespace EvstifeevEvgeniyTasks
                 Array[i] = new int[Convert.ToInt32(SubArraySizesString[i])];
             }
 
-            Task04.InitializeArray(Array);//Inizialization of the array
-            Task04.ShowArray(Array);//Demonstration of the array
-            Task04.MergeSort(Array);//Sorting the array
-            Task04.ShowArray(Array);
+            Task0_4Array.InitializeArray(Array);//Inizialization of the array
+            Task0_4Array.ShowArray(Array);//Demonstration of the array
+            Task0_4Array.MergeSort(Array);//Sorting the array
+            Task0_4Array.ShowArray(Array);
         }
 
     }

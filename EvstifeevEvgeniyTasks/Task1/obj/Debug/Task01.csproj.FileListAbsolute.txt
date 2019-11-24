@@ -1,0 +1,12 @@
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task2\obj\Debug\Task01.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task2\bin\Debug\Task1.exe.config
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task2\bin\Debug\Task1.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task2\bin\Debug\Task1.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task2\obj\Debug\Task1.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task2\obj\Debug\Task1.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task1\bin\Debug\Task1.exe.config
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task1\bin\Debug\Task1.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task1\bin\Debug\Task1.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task1\obj\Debug\Task01.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task1\obj\Debug\Task1.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task1\obj\Debug\Task1.pdb

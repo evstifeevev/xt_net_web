@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EvstifeevEvgeniyTasks
+namespace Task0
 {
-    class Task01
+    class Task0_1Sequence
     {
         public static string Sequence(ulong n)  //The function return a sequence of the form: 1,2,3,...,n  
         {

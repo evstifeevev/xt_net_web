@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EvstifeevEvgeniyTasks
+namespace Task0
 {
-    class Task02
+    class Task0_2Simple
     {
         public static bool IsPrime(uint n)
         {//Simple primality test of number n

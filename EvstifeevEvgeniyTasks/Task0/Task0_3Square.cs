@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EvstifeevEvgeniyTasks
+namespace Task0
 {
-    class Task03
+    class Task0_3Square
     {
         public static void DrawSquare(uint n) {//Draw a square of stars with a space in the center
             uint half = n / 2;
