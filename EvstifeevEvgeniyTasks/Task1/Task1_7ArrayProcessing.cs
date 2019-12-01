@@ -10,28 +10,63 @@ namespace Task1
     {
         public static void ConsoleInterface()//An interaction interface
         {
-            int[] array = new int[100];//Create new array with 100 numbers
-            Show(array);//Show the array
-            InitializeArray(array);//Iitialize the array
-            Show(array);
-            Console.WriteLine("The maximum element equals to {0}", Max(array));//Find the minimun element of the array
-            Console.WriteLine("The minimum element equals to {0}", Min(array));//Find the maximum element of the array
+            int[] array = new int[3];//Create new array with 100 numbers
+            //Show(array);//Show the array
+            //InitializeArray(array);//Iitialize the array
+            //Show(array);
+            //Console.WriteLine("The maximum element equals to {0}", Max(array));//Find the minimun element of the array
+            //Console.WriteLine("The minimum element equals to {0}", Min(array));//Find the maximum element of the array
             int[] array2 = new int[array.Length];//Create new array with size of old array
-            Array.Copy(array, array2, array.Length);//Copy elements from old array to the new
-            BubbleSort(array2);//Implement bubble sort to sort array
+            //Array.Copy(array, array2, array.Length);//Copy elements from old array to the new
+            //BubbleSort(array2);//Implement bubble sort to sort array
+            //Show(array2);
+            //Array.Copy(array, array2, array.Length);//reset new array
+            //InsertSort(array2);//Implement insertion sort to sort array
+            //Show(array2);
+            //Array.Copy(array, array2, array.Length);//reset new array
+            //SelectionSort(array2);//Implement selection sort to sort array
+            //Show(array2);
+            //Array.Copy(array, array2, array.Length);//reset new array
+            //MergeSort(array2);//Implement merge sort to sort array
+            //Show(array2);
+            //Array.Copy(array, array2, array.Length);//reset new array
+            //QuickSort(array2);//Implement quick sort to sort array
+            //Show(array2);
+            //array2 = new int[0];
+            //InitializeArray(array2);//Iitialize the array
+            //Show(array2);
+            InitializeArray(array2);//Iitialize the array
             Show(array2);
-            Array.Copy(array, array2, array.Length);//reset new array
-            InsertSort(array2);//Implement insertion sort to sort array
-            Show(array2);
-            Array.Copy(array, array2, array.Length);//reset new array
-            SelectionSort(array2);//Implement selection sort to sort array
-            Show(array2);
-            Array.Copy(array, array2, array.Length);//reset new array
-            MergeSort(array2);//Implement merge sort to sort array
-            Show(array2);
-            Array.Copy(array, array2, array.Length);//reset new array
             QuickSort(array2);//Implement quick sort to sort array
             Show(array2);
+            array2 = new int[1];
+            InitializeArray(array2);//Iitialize the array
+            Show(array2);
+            QuickSort(array2);//Implement quick sort to sort array
+            Show(array2);
+            array2 = new int[2];
+            InitializeArray(array2);//Iitialize the array
+            Show(array2);
+            QuickSort(array2);//Implement quick sort to sort array
+            Show(array2);
+            array2 = new int[3];
+            InitializeArray(array2);//Iitialize the array
+            Show(array2);
+            QuickSort(array2);//Implement quick sort to sort array
+            Show(array2);
+            array2 = new int[11];
+            InitializeArray(array2);//Iitialize the array
+            Show(array2);
+            QuickSort(array2);//Implement quick sort to sort array
+            Show(array2);
+            array2 = new int[10];
+            InitializeArray(array2);//Iitialize the array
+            Show(array2);
+            QuickSort(array2);//Implement quick sort to sort array
+            Show(array2);
+            array2 = new int[10000];
+            InitializeArray(array2);//Iitialize the array
+            QuickSort(array2);//Implement quick sort to sort array
         }
         /// <summary>
         /// Display all elements of array to the console
@@ -44,7 +79,7 @@ namespace Task1
             for (int i = 0; i < array.Length; i++)//For each element of the array
                 Console.Write($"{array[i]} ");//Write the element
             Console.WriteLine();//Write the white space
-            }
+            } else 
             Console.WriteLine("Error: the array is assigned to null.");
         }
         /// <summary>

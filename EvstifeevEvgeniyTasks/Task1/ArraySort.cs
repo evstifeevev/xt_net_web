@@ -25,7 +25,7 @@ namespace Task1
                 case 2: SelectionSort(a); break;
                 case 3: SortInsert(a); break;
                 case 4: SortMerge(a); break;
-                default: QuickSort(a); break;
+                default: Quick(a); break;
             }
         }
         public static void Show(int[] a)   //Show the whole array
@@ -204,44 +204,44 @@ namespace Task1
             return a;
         }
         //First attempt 
-        static void QuickSort(int[] a)    //The fastest algorithm
-        {
-            a = Quick(a);
-            Console.WriteLine("Quicksort has been done.");
-        }
-        static int[] result;
-        static int[] Quick(int[] a)
-        {
-            result = new int[a.Length];
-            if (a.Length == 1) return a;
-            int temp;
-            int num = a.Length - 1, left = 0, right = num - 1;
-            //num - reference value, left and right - moving markers
-            while (left < num)
-            {
-                while (left < num && a[left] < a[num]) left++;
-                if (left != num)
-                {
-                    while (left != right && a[right] >= a[num]) right--;
-                    temp = a[left]; a[left] = a[right]; a[right] = temp;
-                }
-                if (left == right) break;  //equal markers define sorted element of the array
-            }
-            temp = a[left]; a[left] = a[num]; a[num] = temp;//After replacement the element a[left] will be sorted
-            //Split the array into two parts (generally unequal) and quicksort the parts
-            int[][] b = new int[2][];
-            b[0] = new int[left]; for (int i = 0; i < left; i++) b[0][i] = a[i];
-            b[1] = new int[a.Length - 1 - left]; for (int i = a.Length - 1; i > left; i--) b[1][i - 1 - left] = a[i];
-            if (b[0].Length != 0) b[0] = Quick(b[0]); if (b[1].Length != 0) b[1] = Quick(b[1]);
-            //Combine two parts into one array
-            for (int i = 0; i < a.Length; i++)
-            {
-                if (i < left) a[i] = b[0][i];
-                if (i > left) a[i] = b[1][i - left - 1];
-            }
-            //Return result
-            return a;
-        }
+        //static void QuickSort(int[] a)    //The fastest algorithm
+        //{
+        //    a = Quick(a);
+        //    Console.WriteLine("Quicksort has been done.");
+        //}
+        //static int[] result;
+        //static int[] Quick(int[] a)
+        //{
+        //    result = new int[a.Length];
+        //    if (a.Length == 1) return a;
+        //    int temp;
+        //    int num = a.Length - 1, left = 0, right = num - 1;
+        //    //num - reference value, left and right - moving markers
+        //    while (left < num)
+        //    {
+        //        while (left < num && a[left] < a[num]) left++;
+        //        if (left != num)
+        //        {
+        //            while (left != right && a[right] >= a[num]) right--;
+        //            temp = a[left]; a[left] = a[right]; a[right] = temp;
+        //        }
+        //        if (left == right) break;  //equal markers define sorted element of the array
+        //    }
+        //    temp = a[left]; a[left] = a[num]; a[num] = temp;//After replacement the element a[left] will be sorted
+        //    //Split the array into two parts (generally unequal) and quicksort the parts
+        //    int[][] b = new int[2][];
+        //    b[0] = new int[left]; for (int i = 0; i < left; i++) b[0][i] = a[i];
+        //    b[1] = new int[a.Length - 1 - left]; for (int i = a.Length - 1; i > left; i--) b[1][i - 1 - left] = a[i];
+        //    if (b[0].Length != 0) b[0] = Quick(b[0]); if (b[1].Length != 0) b[1] = Quick(b[1]);
+        //    //Combine two parts into one array
+        //    for (int i = 0; i < a.Length; i++)
+        //    {
+        //        if (i < left) a[i] = b[0][i];
+        //        if (i > left) a[i] = b[1][i - left - 1];
+        //    }
+        //    //Return result
+        //    return a;
+        //}
         //Second attempt (the first one was too slow but had no StackOverflow exception)
         /*  void QuickSort(int[] a) {
              if (a.Length > 1) {
@@ -277,6 +277,120 @@ namespace Task1
              }
              catch (Exception) { Console.WriteLine("QuickSort's subroutine exception"); }
          }*/
+        //The last quicksort implementation (24.11.19)
+        /// <summary>
+        /// Sorts int array with a quicksort algorithm.
+        /// </summary>
+        /// <param name="a"></param>
+        /// <param name="p"></param>
+        /// <param name="r"></param>
+        static void QuickSort(int[] a, int p, int r) {
+            if (p < r)
+            {
+                //bool different = true;
+                //int q = 20;
+                //int temp = a[0];
+                //for (int j = 0; j < a.Length; j++) //Check if all elements are the same
+                //{
+                //    if (a[j] == temp && a.Length - 1 == j) { 
+                //        q = (p + r) / 2;
+                //        different = false;
+                //    }
+                //}
+                //if (different) {
+                //    //int x = a[r];
+                //    //int i = p - 1;
+                //    //for (int j = p; j < r - 1; j++)
+                //    //    if (a[j] <= x)
+                //    //    {
+                //    //        i++;
+                //    //        temp = a[i];
+                //    //        a[i] = a[j];
+                //    //        a[j] = temp;
+                //    //    }
+                //    //temp = a[i + 1];
+                //    //a[i + 1] = a[r];
+                //    //a[r] = temp;
+                //    //q = i + 1;
+
+                //    if (a.Length == 1) q = 0;
+                //    int num = a.Length - 1, left = 0, right = num - 1;
+                //    //num - reference value, left and right - moving markers
+                //    while (left < num)
+                //    {
+                //        while (left < num && a[left] < a[num]) left++;
+                //        if (left != num)
+                //        {
+                //            while (left != right && a[right] >= a[num]) right--;
+                //            temp = a[left]; a[left] = a[right]; a[right] = temp;
+                //        }
+                //        if (left == right) break;  //equal markers define sorted element of the array
+                //    }
+                //    temp = a[left]; a[left] = a[num]; a[num] = temp;//After replacement the element a[left] will be sorted 
+                //    q = left;
+                //}
+                ////int q = Partition(ref a, p, r);//q-th element counts as sorted
+                //QuickSort(ref a, p, q - 1);
+                //QuickSort(ref a, q + 1, r);
+                int q = Partition(a, p, r);
+                QuickSort( a, p, q - 1);
+                QuickSort(a, q + 1, r);
+            } 
+        }
+        static void Quick( int[] a) {
+            QuickSort( a,0,a.Length-1);
+            Console.WriteLine("Quick sort has been completed.");
+        }
+        static int Partition(int[] a, int p, int r) {
+            //int temp = a[0];
+            //for (int j = 0; j < a.Length; j++) //Check if all elements are the same
+            //{
+            //    if (a[j] == temp && a.Length - 1 == j)
+            //        return (p + r) / 2;
+            //}
+            //int x = a[r];
+            //int i = p - 1;
+            //for (int j = p; j < r - 1; j++)
+            //    if (a[j] <= x)
+            //    {
+            //        i++;
+            //        temp = a[i];
+            //        a[i] = a[j];
+            //        a[j] = temp;
+            //    }
+            //temp = a[i + 1];
+            //a[i + 1] = a[r];
+            //a[r] = temp;
+            //return i + 1;
+            int temp;
+            int i = p;
+            for (int j = p; j <= r; j++)
+                if (a[j] < a[r]) {
+                    temp = a[i];
+                    a[i] = a[j];
+                    a[j] = temp;
+                    j++;
+                }
+            temp = a[i];
+            a[i] = a[r];
+            a[r] = temp;
+            return i;
+            //if (a.Length == 1) return 0;     
+            //int num = a.Length - 1, left = 0, right = num - 1;
+            ////num - reference value, left and right - moving markers
+            //while (left < num)
+            //{
+            //    while (left < num && a[left] < a[num]) left++;
+            //    if (left != num)
+            //    {
+            //        while (left != right && a[right] >= a[num]) right--;
+            //        temp = a[left]; a[left] = a[right]; a[right] = temp;
+            //    }
+            //    if (left == right) break;  //equal markers define sorted element of the array
+            //}
+            //temp = a[left]; a[left] = a[num]; a[num] = temp;//After replacement the element a[left] will be sorted 
+            //return left;
+        }
     }
 
 }

@@ -1,0 +1,10 @@
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task02\bin\Debug\Task02.exe.config
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task02\bin\Debug\Task02.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task02\bin\Debug\Task02.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task02\obj\Debug\Task02.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task02\obj\Debug\Task02.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task02\obj\Debug\Task02.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task02\bin\Debug\Task1.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task02\bin\Debug\Task1.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task02\bin\Debug\Task1.exe.config
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task02\obj\Debug\Task02.csproj.CopyComplete

@@ -14,8 +14,9 @@ namespace Task1
             Bold = 1,
             Italic = 2,
             Underline = 4
+            //Every value is a power of two in order to use binary operations.
         }
-        private static void timerExit(object state) {
+        private static void TimerExit(object state) {
            if(noResponse) Environment.Exit(0);//Terminate application
         }
         private static bool noResponse = true;//State of no response from user
@@ -24,12 +25,10 @@ namespace Task1
         {
             Console.WriteLine("The application will automatically close after a minute if " +
                 "no input is provided.");
-            Timer timer = new Timer(timerExit,null,60000,60000);//Create timer to escape infinite loop
+            Timer timer = new Timer(TimerExit,null,60000,60000);//Create timer to escape infinite loop
             FontFormat[] formats = (FontFormat[])Enum.GetValues(typeof(FontFormat));//Create a list of formats
             FontFormat fontFormatVal = new FontFormat();//Initialization of new FontFormat object
-            int numberOfProperties = 0;//Number of font properties
             do {
-                numberOfProperties = 0;//reset the value
                 Console.Write("Inscription Parameters: ");
                 Console.Write(fontFormatVal);//Output current font format
                 Console.WriteLine("\n Type-in:"); 

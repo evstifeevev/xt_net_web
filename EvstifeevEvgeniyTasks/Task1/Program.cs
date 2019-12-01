@@ -16,12 +16,12 @@ namespace Task1
             //Task1_4X_masTree.ConsoleInterface();
             //Task1_5SumOfNumbers.ConsoleInterface();
             //Task1_6FontAdjustment.ConsoleInterface();
-            //Task1_7ArrayProcessing.ConsoleInterface();
+            Task1_7ArrayProcessing.ConsoleInterface();
             //Task1_8NoPositive.ConsoleInterface();
             //Task1_9NonNegativeSum.ConsoleInterface();
             //Task1_10TwoDArray.ConsoleInterface();
             //Task1_11AverageStringLength.ConsoleInterface();
-            Task1_12CharDoubler.ConsoleInterface();
+            //Task1_12CharDoubler.ConsoleInterface();
         }
     }
 }
