@@ -22,7 +22,7 @@ namespace Task02
         /// </summary>
         internal class Round {
             protected double _x, _y;//Center coordinates default value is zero
-            private double _radius;//Radius of circle
+            private readonly double _radius;//Radius of circle
             /// <summary>
             /// Returns length of circumscribed circle
             /// </summary>
@@ -50,7 +50,7 @@ namespace Task02
                         _y = param[1];//Save ordinate coordinate
                             if(param[2] <= 0)//Check if the radius value is invalid
                                 throw new ArgumentException($"{param[2]} is incorrect radius value. The value must be positive.", "_radius");
-                            else _radius = param[2];//Assign radius to the value
+                            _radius = param[2];//Assign radius to the value
                     }
                 }
                 else throw new ArgumentNullException("_radius", "Null argument must not be passed.");

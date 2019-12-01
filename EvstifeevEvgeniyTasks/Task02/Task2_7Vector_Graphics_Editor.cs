@@ -9,7 +9,9 @@ namespace Task02
     class Task2_7Vector_Graphics_Editor
     {
         public static void ConsoleInterface() {
-            Round round = new Round(0,0,1);
+            //Declaring an object of type Ring with specified center coordinates, inner and outer radius 
+            Round round = new Round(0,0,10);
+            //Printing all information about figure
             round.Show();
         }
         class Vector_Graphics_Editor
@@ -22,11 +24,10 @@ namespace Task02
                 Ring = 4,
                 REctangle = 5
             }
-            public static void FigureShow<T>(T figure)
-            where T : Task2_1Round.Round
-            { 
-            }
         }
+        /// <summary>
+        /// Describes point
+        /// </summary>
         public class Point
         {
             public readonly double _x, _y;
@@ -37,7 +38,10 @@ namespace Task02
             public override string ToString()
             => "(" + _x.ToString() + " " + _y.ToString() + ") ";
         }
-        class Figure 
+        /// <summary>
+        /// Describes abstract figure
+        /// </summary>
+        abstract class Figure 
         {
             protected Point[] points;
             public virtual void Show() {
@@ -45,10 +49,14 @@ namespace Task02
                 Console.Write("Points: ");
                 for (int i = 0; i < points.Length; i++)
                     Console.Write(points[i]);
+                Console.WriteLine();
             }
             //protected string TypeOfFigure(Figure figure)
             //    => "Type of figure: " + (figure).GetType();
         }
+        /// <summary>
+        /// Describes line as a figure
+        /// </summary>
         class Line : Figure
         {
             public double Length { get => Math.Sqrt((this.points[0]._x-points[1]._x)* (this.points[0]._x - points[1]._x)+
@@ -61,7 +69,19 @@ namespace Task02
             {
                 this.points = new Point[] {point1, point2};
             }
+            public override void Show()
+            {
+                base.Show();
+                Console.Write("Points: ");
+                for (int i = 0; i < points.Length; i++)
+                    Console.Write(points[i]);
+                Console.WriteLine();
+                Console.WriteLine("Length: ", Length);
+            }
         }
+        /// <summary>
+        /// Describes ractangle as a figure
+        /// </summary>
         class Rectangle : Figure
         {
             readonly Line[] lines = new Line[4];
@@ -76,8 +96,18 @@ namespace Task02
             public override void Show()
             {
                 base.Show();
+                Console.Write("Lines: ");
+                for (int i = 0; i < lines.Length; i++) 
+                {
+                    Console.Write($"line №{i+1}: ");
+                    lines[i].Show();
+                }
+                Console.WriteLine();
             }
         }
+        /// <summary>
+        /// Describes circle as a figure
+        /// </summary>
         class Circle : Figure 
         {
             public double Length { get => 2 * Math.PI * _radius; }
@@ -88,32 +118,75 @@ namespace Task02
                     throw new ArgumentException("The value of radius must be positive.", "radius");
                 _radius = radius;
                 points = new Point[]{ new Point(x, y)};
-            } 
-        }
-        class Round : Circle
-        {
-            private readonly new double _radius;
-            public double Area { get => Math.PI * _radius; }
-            protected Round() { }
-            public Round(double x, double y, double radius) : base(x, y, radius) {
-                _radius = radius;
+            }
+            public override void Show()
+            {
+                base.Show();
+                Console.WriteLine(nameof(_radius)+" "+_radius);
             }
         }
-        class Ring : Round
+        /// <summary>
+        /// Describes round as a figure
+        /// </summary>
+        class Round : Circle
+        {
+            /// <summary>
+            /// Returns round area
+            /// </summary>
+            public double Area { get => Math.PI * _radius; }
+            /// <summary>
+            /// Constructor for derived classes
+            /// </summary>
+            protected Round() { }
+            /// <summary>
+            /// Creates a round with specified center coordinates and radius.
+            /// </summary>
+            /// <param name="x">Abscissa coordinate of the center</param>
+            /// <param name="y">Ordinate coordinate of the center</param>
+            /// <param name="radius">Radius of the round</param>
+            public Round(double x, double y, double radius) : base(x, y, radius) {
+            }
+        }
+        /// <summary>
+        /// Describes ring as a figure
+        /// </summary>
+        class Ring : Circle
         {
             private readonly double _innerRadius;//Inner ring radius
             private readonly double _outerRadius;//Outer ring radius
-            public new double Area { get { return Math.PI * (_outerRadius * _outerRadius - _innerRadius * _innerRadius); } }
+            /// <summary>
+            /// Returns ring area
+            /// </summary>
+            public double Area { get { return Math.PI * (_outerRadius * _outerRadius - _innerRadius * _innerRadius); } }
+            /// <summary>
+            /// Returns summary length of inner and outer circles of the ring
+            /// </summary>
             public new double Length { get { return 2 * Math.PI * (_outerRadius + _innerRadius); } }
+            /// <summary>
+            /// Creates a ring with specified center coordinates, inner and outer radius .
+            /// </summary>
+            /// <param name="x">Abscissa coordinate of the center</param>
+            /// <param name="y">Ordinate coordinate of the center</param>
+            /// <param name="innerRadius">Radius of inner circle</param>
+            /// <param name="outerRadius">Radius of outer circle</param>
             public Ring(double x, double y, double innerRadius, double outerRadius)
             {
-                points = new Point[] { new Point(x, y) };
+                //Checking if inner radius is not positive
                 if (innerRadius <= 0)
                     throw new ArgumentException("The inner radius value must be positive.", "innerRadius");
+                //Checking if outer radius is bigger than the outer one.
                 if (outerRadius <= innerRadius)
                     throw new ArgumentException("The outer radius can not be less than the inner radius or be equal to it.", "outerRadius");
+                //Assigning center point, inner and outer radius
+                points = new Point[] { new Point(x, y) };
                 _innerRadius = innerRadius;
                 _outerRadius = outerRadius;
+            }
+            public override void Show()
+            {
+                base.Show();
+                Console.WriteLine(nameof(_innerRadius) + " " + _innerRadius);
+                Console.WriteLine(nameof(_outerRadius) + " " + _outerRadius);
             }
         }
     }

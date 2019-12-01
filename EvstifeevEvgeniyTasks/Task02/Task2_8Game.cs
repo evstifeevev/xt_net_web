@@ -16,12 +16,14 @@ namespace Task02
             class Location {
                 public double X{ get => X; set => X = value; }
                 public double Y { get => Y; set => Y = value; }
-                Location(double x, double y) {
-                    X = x;
-                    Y = y;
+
+                protected Location() { }
+                public Location(double x, double y) {
+                    this.X = x;
+                    this.Y = y;
                 }
             }
-            class Character : ICollidable
+            class Character : Location, ICollidable
             {
                 public double HealthPoints { get => (HealthPoints <= 100 && HealthPoints > 0) ? HealthPoints : 0; set => HealthPoints = value; }
                 protected double _baseDamage = 1;
@@ -41,17 +43,42 @@ namespace Task02
                 {
                     
                 }
-                public void Collision<T>(T entity) 
+                protected void Move()
                 {
-                    if (entity is Obstacle) 
+
+                }
+                protected void Attack(Character entity)
+                {
+                    entity.HealthPoints -= this.Damage;
+                }
+                public virtual void Collision<T>(T entity) 
+                {
+                    if (entity is ICollidable)
+                        if (entity is Obstacle) 
                     {
                         Avoid();
-                    } 
+                    } else
+                    if (entity is Player || entity is Monster)
+                    {
+                        Attack(entity as Character);
+                    }
                 }
             }
             class Player : Character
             {
                 public Player() { }
+                public override void Collision<T>(T entity) 
+                {
+                    if (entity is ICollidable) { 
+                        base.Collision<T>(entity);
+                    if (entity is Bonus)
+                    {
+                        if (entity is Cherry) { }
+                        else if (entity is Apple) { }
+                        else if (entity is Apple) { }
+                    }
+                    }
+                }
             }
             class Monster : Character
             { 
@@ -69,11 +96,12 @@ namespace Task02
             {
 
             }
-            class Field {
+            class Field 
+            {
                 public double Width { get => Width; }
                 public double Height { get => Height; }
             }
-            class Bonus : ICollidable
+            class Bonus : Location, ICollidable
             {
                 public void Collision<T>(T entity)
                 {
@@ -87,9 +115,23 @@ namespace Task02
             {
 
             }
-            class Obstacle
+            class Apple : Bonus
             {
-                
+
+            }
+            class Strawberry : Bonus
+            {
+
+            }
+            class Obstacle : Location, ICollidable
+            {
+                public void Collision<T>(T entity)
+                {
+                    if (entity is Character)
+                    {
+                        
+                    }
+                }
             }
             class Rock : Obstacle
             { 

@@ -71,6 +71,7 @@ namespace Task02
                     for (int i = 0; i < 2; i++)
                         if (_apicesCoordinates[i] == _apicesCoordinates[i + 2] && _apicesCoordinates[i + 4] == _apicesCoordinates[i])
                             throw new ArgumentException("Incorrect input. All points are on the same line.", "_apicesCoordinates");
+                    //Save all points coordinates
                     for (int i = 0; i < 6; i++) _apicesCoordinates[i] = param[i];
                     Sides = new double[3] { GetDistance(_apicesCoordinates[0], _apicesCoordinates[1], _apicesCoordinates[2], _apicesCoordinates[3]),
                         GetDistance(_apicesCoordinates[2], _apicesCoordinates[3], _apicesCoordinates[4], _apicesCoordinates[5]),

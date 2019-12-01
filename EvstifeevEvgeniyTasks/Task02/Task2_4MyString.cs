@@ -10,11 +10,17 @@ namespace Task02
     class Task2_4MyString
     {
         public static void ConsoleInterface() {
+            //Declaring an object of type MyString with specified string
             MyString myString = new MyString("Example of a string.");
+            //Printing myString's value
             Console.WriteLine(nameof(myString) +": "+ myString);
+            //Declaring another object of type MyString with specified string
             MyString myString2 = new MyString("Example of a string № 2.".ToCharArray());
+            //Printing the value of myString2
             Console.WriteLine(nameof(myString2) + ": " + myString2);
+            //Printing length of myString
             Console.WriteLine("Length of myString = " + myString.Length);
+            //Printing results of comparison between both strings
             Console.WriteLine("First string == second string? " + (myString == myString2));
             Console.WriteLine("First string != second string? " + (myString != myString2));
             Console.WriteLine("First string == first string? " + (myString == new MyString("Example of a string.")));
@@ -22,13 +28,14 @@ namespace Task02
             Console.WriteLine("First string < second string? " + (myString < myString2));
             Console.WriteLine("First string >= second string? " + (myString >= myString2));
             Console.WriteLine("First string <= second string? " + (myString <= myString2));
-
+            //Printing result of searching char in the string
             Console.WriteLine("Index of 'a' in myString = " + myString.IndexOf('a'));
             Console.WriteLine("Last index of 'a' in myString = " + myString.LastIndexOf('a'));
 
         }
         public class MyString
         {
+            //String as array of characters
             private readonly char[] _string;
             public int Length { get { return _string.Length; }  }
 
@@ -86,7 +93,8 @@ namespace Task02
                 return -1;
             }
             /// <summary>
-            /// 
+            /// Returns index of the last char == c and -1 if Mystring does not contain 
+            /// the symbol.
             /// </summary>
             /// <param name="c"></param>
             /// <returns></returns>
@@ -97,6 +105,12 @@ namespace Task02
                         return i;
                 return -1;
             }
+            /// <summary>
+            /// Overriding + operator for MyString
+            /// </summary>
+            /// <param name="myString1"></param>
+            /// <param name="myString2"></param>
+            /// <returns></returns>
             public static MyString operator +(MyString myString1, MyString myString2) {
                 int allCount = myString1.Length + myString2.Length;
                 char[] result = new char[allCount];
@@ -106,6 +120,7 @@ namespace Task02
                     result[i] = myString2[i- myString1.Length];
                 return new MyString(result);
             }
+            //Overriding comparison operators
             public static bool operator >(MyString myString1, MyString myString2) =>  myString1.Length > myString2.Length;
             public static bool operator <(MyString myString1, MyString myString2) => myString1.Length < myString2.Length;
             public static bool operator >=(MyString myString1, MyString myString2) => !(myString1 < myString2);
@@ -122,6 +137,7 @@ namespace Task02
             {
                 return !(myString1==myString2);
             }
+            //Indexer for MyString
             public char this[int index] {
                 get
                 {
@@ -146,6 +162,7 @@ namespace Task02
             {
                 return ConvertToString(this);
             }
+            //Method to support foreach
             public IEnumerator GetEnumerator() 
             { 
                 return _string.GetEnumerator(); 
