@@ -10,9 +10,9 @@ namespace Task03
     {
         static void Main(string[] args)
         {
-            //Task0301.ConsoleInterface();
+            Task0301.ConsoleInterface();
             //Task0302.ConsoleInterface();
-            Task0303.ConsoleInterface();
+            //Task0303.ConsoleInterface();
         }
     }
 }

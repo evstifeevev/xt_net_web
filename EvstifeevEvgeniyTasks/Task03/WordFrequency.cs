@@ -18,26 +18,26 @@ namespace Task03
             {
                 Console.WriteLine($"Frequency of the word \"{list.Words[i]}\" is {list[i]}");
             }
-            
         }
     }
     class WordFrequency<T> : IEnumerable<T>
         where T:IComparable
     {
         float[] wordsFrequencies = new float[0];
-        public List<string> Words = null;
+        public MyList<string> Words { get { return _words; } }
+        private MyList<string> _words = null;
         private char[] _separators = { ' ', '.' };
         public int Count { get { return wordsFrequencies.Length; } }
         public WordFrequency(string text) 
            
         {
-            List<string> differentWords = new List<string>();
+            MyList<string> differentWords = new MyList<string>();
             var temp = text.Split(_separators);
             for(int i=0;i< temp.Length;i++)
             {
                 temp[i]=temp[i].ToLower(); 
             }
-            List<int> amount = new List<int>();
+            MyList<int> amount = new MyList<int>();
             for (int i = 0; i < temp.Length; i++)
             {
                 int count = wordCount(temp[i], temp);
@@ -45,7 +45,7 @@ namespace Task03
                     differentWords.Add(temp[i]);
             }
             wordsFrequencies = new float[differentWords.Count];
-            Words = differentWords;
+            _words = differentWords;
             for (int i = 0; i < differentWords.Count; i++) 
             {
                 wordsFrequencies[i] = Frequency(differentWords[i], differentWords);
@@ -53,7 +53,7 @@ namespace Task03
             
         }
         private static int wordCount<U>(U word, U[] words)
-            where U : IComparable
+            where U : IComparable<U>
         {
             int result = 0;
             for (int i = 0; i < words.Length; i++)
@@ -62,8 +62,8 @@ namespace Task03
             return result;
 
         }
-        private static float Frequency<U>(U word, List<U> words)
-            where U : IComparable
+        private static float Frequency<U>(U word, MyList<U> words)
+            where U : IComparable<U>
         {
             float result = 0;
             
@@ -95,5 +95,23 @@ namespace Task03
             }
         }
     }
-   
+    public class MyList<T> : Lost<T>
+        where T:IComparable<T>
+    {
+        public T this[int i]
+        {
+            get
+            {
+                if (i > Count)
+                    throw new ArgumentOutOfRangeException();
+                return people[i];
+            }
+            set
+            {
+                if (i > Count)
+                    throw new ArgumentOutOfRangeException();
+                people[i] = value;
+            }
+        }
+    }
 }

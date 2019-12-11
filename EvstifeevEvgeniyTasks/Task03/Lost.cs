@@ -35,10 +35,11 @@ namespace Task03
             Console.WriteLine($"The next person is {list.NextPerson()}");
         }
     }
-    public class Lost<T> : ICollection<T> 
+    public class Lost<T> : ICollection<T>
+        where T : IComparable<T>
     {
 
-        T[] people = null;
+        protected T[] people = new T[4];
 
         public int Count = 0;
 
@@ -50,6 +51,7 @@ namespace Task03
         public virtual void Add(T item)
         {
             var temp = people!=null? people : new T[0];
+            
             int LastIndex = 0;
                 if (people == null || Count >= _capacity)
                 {
@@ -160,6 +162,8 @@ namespace Task03
 
         public bool Contains(T item)
         {
+            if (people == null)
+                throw new NullReferenceException();
             foreach (var person in people)
                 if (item.Equals(person))
                     return true;
@@ -180,7 +184,7 @@ namespace Task03
             return people.GetEnumerator();
         }
     }
-    public class Person 
+    public class Person : IComparable<Person>
     {
         public string Name = "";
         public int Number { get; }
@@ -196,5 +200,13 @@ namespace Task03
         }
         public override string ToString() => Name;
 
+        public int CompareTo(Person other)
+        {
+            return this.Name == other.Name && this.Number == other.Number ?
+                0
+                : this.Name.CompareTo(other.Name) != 0?
+                this.Name.CompareTo(other.Name) 
+                : this.Number.CompareTo(other.Number);
+        }
     }
 }
