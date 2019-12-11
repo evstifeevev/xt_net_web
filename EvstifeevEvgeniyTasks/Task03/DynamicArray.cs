@@ -16,16 +16,48 @@ namespace Task03
             Console.WriteLine("List elements: ");
             for (int i = 0; i < 10; i++)
             {
-                list.Add(i % 3);
+                list.Add(i % 3+1);
                 Console.Write(list[i]+ ",");
             }
-            Console.WriteLine(Environment.NewLine+"Dynamic array elements: ");
+
             for (int i = 0; i < 10; i++)
             {
-                array.Add(i % 4);
-                Console.Write(array[i] + ",");
+                array.Add(i % 4+1);
+                Console.WriteLine("Adding "+  array[i] +":"+ Environment.NewLine +
+                    "Dynamic array length: " + array.Length + Environment.NewLine +
+                     "Dynamic array capacity: " + array.Capacity);
             }
             Console.WriteLine(Environment.NewLine + "Dynamic array elements: ");
+            foreach (var item in array)
+            {
+                Console.Write(item + ",");
+            }
+            Console.WriteLine(Environment.NewLine + "Array after removing item = 1:");
+            if (array.Remove(1)) Console.WriteLine("Success!");
+            else Console.WriteLine("There is no such item!");
+            foreach (var item in array)
+            {
+                Console.Write(item+",");
+            }
+            Console.WriteLine("Dynamic array length: " + array.Length + Environment.NewLine +
+     "Dynamic array capacity: " + array.Capacity);
+            Console.WriteLine("Adding a list to the dynamic array:");
+            array.AddRange(list);
+            foreach (var item in array)
+            {
+                Console.Write(item + ",");
+            }
+            Console.WriteLine("Dynamic array length: " + array.Length + Environment.NewLine +
+     "Dynamic array capacity: " + array.Capacity);
+            Console.WriteLine(Environment.NewLine + "Array after insertion of item = 9 at 9th position:");
+            if (array.Insert(9,9)) Console.WriteLine("Success!");
+            else Console.WriteLine("Failure!");
+            foreach (var item in array)
+            {
+                Console.Write(item + ",");
+            }
+            Console.WriteLine("Dynamic array length: " + array.Length + Environment.NewLine +
+     "Dynamic array capacity: " + array.Capacity);
         }
     }
     class DynamicArray<T> : IEnumerable<T>
@@ -90,7 +122,8 @@ namespace Task03
                     _array[i] = temp[i];
                     _arrayValuableItems[i] = true;
                 }
-                _array[temp.Length + 1] = item;
+                _array[temp.Length] = item;
+                _arrayValuableItems[temp.Length] = true;
                 return;
             }
             for (int i=0;i<_array.Length;i++)
@@ -104,28 +137,34 @@ namespace Task03
         }
         public void AddRange(IEnumerable<T> collection)
         {
-            if (_arrayValuableItems[_array.Length - 1])
+            if (MyCount(collection)+Length>Capacity)
             {
                 T[] temp = new T[_array.Length];
-                
+                for (int i = 0; i < temp.Length; i++)
+                {
+                    temp[i] = _array[i];
+                }
+                int length = Length;
                 int newCapacity = _array.Length * 2;
                 while (newCapacity < temp.Length + MyCount(collection))
                     newCapacity *= 2;
                 _array = new T[newCapacity];
-
+                _arrayValuableItems = new bool[newCapacity];
                 for (int i = 0; i < temp.Length; i++)
                 {
                     _array[i] = temp[i];
+                    _arrayValuableItems[i] = true;
                 }
                 for (int i = 0; i < MyCount(collection); i++)
                 {
-                    _array[i + temp.Length] = collection.ElementAt(i);
+                    _array[i + length] = collection.ElementAt(i);
+                    _arrayValuableItems[i+length] = true;
                 }
                 return;
             }
             for (int i = 0; i < _array.Length; i++)
             {
-                if (_array[i] == null)
+                if (!_arrayValuableItems[i])
                 {
                     for (int k = 0; k < MyCount(collection); k++)
                     {
@@ -138,6 +177,8 @@ namespace Task03
         }
         private T MyElementAt(IEnumerable<T> collection, int k) 
         {
+            if (k >= MyCount(collection))
+                throw new ArgumentOutOfRangeException();
             int temp = 0;
             foreach (T item in collection) 
             {
@@ -172,26 +213,69 @@ namespace Task03
         {
             bool result = false;
             bool[] removableItems = new bool[_array.Length];
+  
             int newIndex = 0;
+            int length = Length;
             T[] temp = new T[_array.Length];
-            for (int i = 0; i < _array.Length; i++)
+            for (int i = 0; i < length; i++)
             {
-                if (item.CompareTo(_array[i]) ==0) 
+                while (item.CompareTo(_array[i]) == 0)
                 {
                     result = true;
+                    i++;
+                }
+                if (item.CompareTo(_array[i]) != 0)
+                {
+                    if (i < length) { 
+                        temp[newIndex] = _array[i];
+                        removableItems[newIndex] = true;
+                    }
                     newIndex++;
-                } 
-                else temp[newIndex] = _array[i];
+                }
+                
             }
             if (result) 
             { 
-                Array.Copy(temp, _array,temp.Length);
+                int newCapacity = Capacity;
+                while (newIndex <= newCapacity / 2) 
+                {
+                    newCapacity /= 2;
+                }
+                _array = new T[newCapacity];
+                _arrayValuableItems = new bool[newCapacity];
+                Array.Copy(temp, _array, newIndex);
+                Array.Copy(removableItems, _arrayValuableItems, newIndex);
             }
             return result;
         }
-        public void Insert() 
-        { 
-            
+        public bool Insert(T item, int position) 
+        {
+            bool result = false;
+            int length = Length;
+            if (position >= Length)
+                throw new ArgumentOutOfRangeException();
+            if (_arrayValuableItems[_array.Length - 1])
+            {
+                T[] temp = new T[_array.Length];
+                for (int i = 0; i < _array.Length; i++)
+                {
+                    temp[i] = _array[i];
+                }
+                _array = new T[_array.Length * 2];
+                _arrayValuableItems = new bool[_array.Length];
+                for (int i = 0; i < temp.Length; i++)
+                {
+                    _array[i] = temp[i];
+                    _arrayValuableItems[i] = true;
+                }
+                _arrayValuableItems[temp.Length] = true;
+            }
+            for (int i = length + 1; i >= position; i--) 
+            {
+                _array[i]=_array[i-1];
+            }
+            _array[position] = item;
+            return result;
         }
         public IEnumerator<T> GetEnumerator()
         {
