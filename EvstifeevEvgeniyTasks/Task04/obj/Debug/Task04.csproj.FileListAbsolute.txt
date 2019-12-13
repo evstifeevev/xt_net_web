@@ -1,0 +1,6 @@
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task04\obj\Debug\Task04.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task04\bin\Debug\Task04.exe.config
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task04\bin\Debug\Task04.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task04\bin\Debug\Task04.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task04\obj\Debug\Task04.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task04\obj\Debug\Task04.pdb
