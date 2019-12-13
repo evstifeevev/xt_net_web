@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="CustomSort.cs" />
     <Compile Include="CustomSortDemo.cs" />
+    <Compile Include="ISeekYou.cs" />
     <Compile Include="NumberArraySum.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

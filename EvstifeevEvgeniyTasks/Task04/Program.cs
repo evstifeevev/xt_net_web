@@ -12,9 +12,10 @@ namespace Task04
         {
             //Task0401.ConsoleInterface();
             //CustomSortDemo.ConsoleInterface();
-           //Task0403.ConsoleInterface();
+            //Task0403.ConsoleInterface();
             //Task0404.ConsoleInterface();
-            Task0405.ConsoleInterface();
+            //Task0405.ConsoleInterface();
+            Task0406.ConsoleInterface();
         }
     }
 }
