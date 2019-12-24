@@ -72,6 +72,47 @@ namespace Task05
             if (args.Length > 1 && args[1].ToLower().Contains("backup"))
             {
                 Console.WriteLine("The backup mode's been activated.");
+
+                // Check if the log file exists
+                if (!File.Exists(logFileName))
+                {
+                    Console.WriteLine("The log file has not been found.");
+                    return;
+                }
+
+                // Clear list of logs
+                listOfLogs.Clear();
+
+                // Fill the list
+                using (StreamReader sr = new StreamReader(logFileName))
+                {
+                    while (!sr.EndOfStream)
+                    {
+                        // Deserialize log from .json file
+                        Log log = JsonConvert.DeserializeObject<Log>(sr.ReadLine());
+                        listOfLogs.Add(log);
+                    }
+                }
+
+                // Initialize lastLogIndex if it was not initialized before 
+                if (lastLogIndex == -1)
+                    if (File.Exists(lastLogIndexFileName))
+                    {
+                        using (StreamReader sr = new StreamReader(lastLogIndexFileName))
+                        {
+                            if (int.TryParse(sr.ReadLine(), out lastLogIndex))
+                            {
+                                // Ignore
+                            }
+                        }
+                    }
+                    else
+                    {
+                        // The last index in the collection
+                        lastLogIndex = listOfLogs.Count() - 1;
+                    }
+                Console.WriteLine($"Current state date and time: {DateTime.Now.ToString()}, " +
+                    $"current log line: {lastLogIndex + 1}");
                 Console.WriteLine("Enter the restore date and time:");
                 string s2 = "";
                 do
@@ -109,6 +150,47 @@ namespace Task05
                 if (s.Contains("backup"))
                 {
                     Console.WriteLine("The backup mode's been activated.");
+
+                    // Check if the log file exists
+                    if (!File.Exists(logFileName))
+                    {
+                        Console.WriteLine("The log file has not been found.");
+                        return;
+                    }
+
+                    // Clear list of logs
+                    listOfLogs.Clear();
+
+                    // Fill the list
+                    using (StreamReader sr = new StreamReader(logFileName))
+                    {
+                        while (!sr.EndOfStream)
+                        {
+                            // Deserialize log from .json file
+                            Log log = JsonConvert.DeserializeObject<Log>(sr.ReadLine());
+                            listOfLogs.Add(log);
+                        }
+                    }
+
+                    // Initialize lastLogIndex if it was not initialized before 
+                    if (lastLogIndex == -1)
+                        if (File.Exists(lastLogIndexFileName))
+                        {
+                            using (StreamReader sr = new StreamReader(lastLogIndexFileName))
+                            {
+                                if (int.TryParse(sr.ReadLine(), out lastLogIndex))
+                                {
+                                    // Ignore
+                                }
+                            }
+                        }
+                        else
+                        {
+                            // The last index in the collection
+                            lastLogIndex = listOfLogs.Count() - 1;
+                        }
+                    Console.WriteLine($"Current state date and time: {DateTime.Now.ToString()}, " +
+                        $"current log line: {lastLogIndex + 1}");
                     Console.WriteLine("Enter the restore date and time or 'q' to change the mode:");
                     string s2 = "";
                     do
@@ -164,6 +246,17 @@ namespace Task05
 
             // Create watchers to watch file changes
             List<FileSystemWatcher> watchers = new List<FileSystemWatcher>();
+
+            //// Clearing previous log file (some access exceptions occure when 
+            //// the log file contains previous logs)
+            //using (StreamWriter sw = new StreamWriter(logFileName))
+            //{
+
+            //}
+            if (File.Exists(lastLogIndexFileName)) 
+            {
+                File.Delete(lastLogIndexFileName);
+            }
             foreach (var directory in directories)
             {
                 // Add watch for every directory
@@ -186,12 +279,7 @@ namespace Task05
                     // Add file data to the log
                     log.AddAllLines(fileData);
 
-                    // Clearing previous log file (some access exceptions occure when 
-                    // the log file contains previous logs)
-                    using (StreamWriter sw = new StreamWriter(logFileName))
-                    {
 
-                    }
                     // Save log to the log file by serialising it using Newtonsoft Json
                     using (StreamWriter sw = new StreamWriter(logFileName, true))
                     {
@@ -207,10 +295,10 @@ namespace Task05
                 watcher.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
 
                 // Add event handlers.
-                watcher.Changed += OnChanged;
-                watcher.Created += OnChanged;
-                watcher.Deleted += OnChanged;
-                watcher.Renamed += OnRenamed;
+                watcher.Changed += OnChangedNewThread;
+                watcher.Created += OnChangedNewThread;
+                watcher.Deleted += OnChangedNewThread;
+                watcher.Renamed += OnRenamedNewThread;
 
                 // Start watching.
                 watcher.EnableRaisingEvents = true;
@@ -229,10 +317,10 @@ namespace Task05
             {
 
                 // Add event handlers.
-                watcher.Changed -= OnChanged;
-                watcher.Created -= OnChanged;
-                watcher.Deleted -= OnChanged;
-                watcher.Renamed -= OnRenamed;
+                watcher.Changed -= OnChangedNewThread;
+                watcher.Created -= OnChangedNewThread;
+                watcher.Deleted -= OnChangedNewThread;
+                watcher.Renamed -= OnRenamedNewThread;
 
                 // Change the flag to start watching.
                 watcher.EnableRaisingEvents = false;
@@ -242,7 +330,32 @@ namespace Task05
         /// The log file's name.
         /// </summary>
         static string logFileName = Environment.CurrentDirectory + "\\Log.json";
-
+        /// <summary>
+        /// The last position in log
+        /// </summary>
+        static string lastLogIndexFileName = Environment.CurrentDirectory + "\\LastLogIndex.dat";
+        /// <summary>
+        /// Run event handler for changed file in new thread
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        static void OnChangedNewThread(object source, FileSystemEventArgs e)
+        {
+            //Thread th = new Thread(() => OnChanged(source, e));
+            //th.Start();
+            OnChanged(source, e);
+        }
+        /// <summary>
+        /// Run event handler for renamed file in new thread
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="e"></param>
+        static void OnRenamedNewThread(object source, RenamedEventArgs e)
+        {
+            //Thread th = new Thread(() => OnRenamed(source, e));
+            //th.Start();
+            OnRenamed(source, e);
+        }
         /// <summary>
         /// Run if file was created, changed or deleted. 
         /// </summary>
@@ -250,35 +363,63 @@ namespace Task05
         /// <param name="e"></param>
         static void OnChanged(object source, FileSystemEventArgs e)
         {
-            //Current date and time
+            // Current date and time
             DateTime currentFileDateTime = DateTime.Now;
 
-            //Create new log
+            // Create new log
             Log log = new Log(currentFileDateTime, e.FullPath, e.FullPath, e.ChangeType);
 
             Console.WriteLine($"File: {e.FullPath} has been {e.ChangeType} at " +
                 $"{currentFileDateTime.ToLongDateString()} {currentFileDateTime.ToLongTimeString()}");
-            //Write all file data if file was created or changed
+            // Write all file data if file was created or changed
             if (e.ChangeType == WatcherChangeTypes.Created || e.ChangeType == WatcherChangeTypes.Changed)
             {
                 List<string> fileData = new List<string>();
-                using (StreamReader sr = new StreamReader(e.FullPath))
+                try
                 {
-                    while (!sr.EndOfStream)
+                    using (StreamReader sr = new StreamReader(e.FullPath))
                     {
-                        var t = sr.ReadLineAsync();
-                        t.Wait();
-                        fileData.Add(t.Result);
-                    }
+                        while (!sr.EndOfStream)
+                        {
+                            var t = sr.ReadLineAsync();
+                            t.Wait();
+                            fileData.Add(t.Result);
+                        }
 
+                    }
+                }
+                catch (IOException ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
                 log.AddAllLines(fileData);
             }
 
-            //Serialize log using Newtonsoft Json
-            using (StreamWriter sw = new StreamWriter(logFileName, true))
+            // Status of log serializing
+            bool successfulLog = false;
+
+            // Serialize log using Newtonsoft Json
+            while (!successfulLog)
             {
-                sw.WriteLine(JsonConvert.SerializeObject(log));
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(logFileName, true))
+                    {
+                        sw.WriteLine(Environment.NewLine);
+                    }
+                    using (StreamWriter sw = new StreamWriter(logFileName, true))
+                    {
+                        sw.WriteLine(JsonConvert.SerializeObject(log));
+                        successfulLog = true;
+                    }
+                }
+                catch (IOException ex)
+                {
+                    // successfulLog = false;
+                    successfulLog = true;
+                    Console.WriteLine(ex.Message);
+
+                }
             }
         }
         /// <summary>
@@ -288,18 +429,55 @@ namespace Task05
         /// <param name="e"></param>
         static void OnRenamed(object source, RenamedEventArgs e)
         {
-
+            // Current date and time
             DateTime currentFileDateTime = DateTime.Now;
+
+            // Create log with current dateTime and renamed file
             Log log = new Log(currentFileDateTime, e.FullPath, e.OldFullPath, e.ChangeType);
 
             Console.WriteLine($"File {e.OldFullPath} has been renamed to {e.FullPath} at " +
                 $"{currentFileDateTime.ToLongDateString()} {currentFileDateTime.ToLongTimeString()}");
 
-            //Serialize log using Newtonsoft Json
-            using (StreamWriter sw = new StreamWriter(logFileName, true))
+            // Copy file data
+            List<string> fileData = new List<string>();
+            using (StreamReader sr = new StreamReader(e.FullPath))
             {
-                sw.WriteLine(JsonConvert.SerializeObject(log));
+                while (!sr.EndOfStream)
+                {
+                    var t = sr.ReadLineAsync();
+                    t.Wait();
+                    fileData.Add(t.Result);
+                }
+
             }
+            log.AddAllLines(fileData);
+
+            // Status of log serializing
+            bool successfulLog = false;
+
+            // Serialize log using Newtonsoft Json
+            while (!successfulLog)
+            {
+                try
+                {
+                    using (StreamWriter sw = new StreamWriter(logFileName, true))
+                    {
+                        sw.WriteLine(Environment.NewLine);
+                    }
+                    using (StreamWriter sw = new StreamWriter(logFileName, true))
+                    {
+                        sw.WriteLine(JsonConvert.SerializeObject(log));
+                        successfulLog = true;
+                    }
+                }
+                catch (IOException ex)
+                {
+                    // successfulLog = false;
+                    successfulLog = true;
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
         }
 
         /// <summary>
@@ -308,7 +486,7 @@ namespace Task05
         /// <param name="backupTime"></param>
         static void backup(DateTime backupTime)
         {
-            //Check if the log file exists
+            // Check if the log file exists
             if (!File.Exists(logFileName))
             {
                 Console.WriteLine("The log file has not been found.");
@@ -329,18 +507,24 @@ namespace Task05
                 }
             }
 
-            // Initialize lastLogIndex if it was not initialized before 
-            if (lastLogIndex == -1)
-            {
-                // The last index in the collection
-                lastLogIndex = listOfLogs.Count() - 1;
-            }
 
 
             if (listOfLogs[lastLogIndex].logdate == backupTime)
             {
                 Console.WriteLine("The backup is not required.");
                 return;
+            }
+
+            int LastLogIndexOld = lastLogIndex;
+
+            int targetLogIndex = 0;
+
+            for (int i = listOfLogs.Count() - 1; i >= 0; i--)
+            {
+                if (listOfLogs[i].logdate >= backupTime)
+                {
+                    targetLogIndex = i;
+                }
             }
 
             bool[] usedLogs = new bool[listOfLogs.Count()];
@@ -352,237 +536,328 @@ namespace Task05
 
             if (condition)
             {
-                
+
                 //for (int i = 0; i < listOfLogs.Count; i++)
                 //{
 
                 //    if (listOfLogs[i].logdate == default) { }
                 //}
             }
-            else 
-            { 
-            
+            else
+            {
+
             }
             //lastLogIndex += !condition ? -1 : 0;
             //if (lastLogIndex < 0) lastLogIndex = 0;
             //if (lastLogIndex >= listOfLogs.Count) lastLogIndex = listOfLogs.Count - 1;
 
+            //int Addition = 1;
+
+
+
             // Check all logs from the list in order specified by the condition
             for (//int i1 = condition ? lastLogIndex : listOfLogs.Count - 1;
-            int i1 = lastLogIndex;
-        condition ? i1 < listOfLogs.Count : i1 >= lastLogIndex;
-      //   condition ? i1 < listOfLogs.Count : i1 >= lastLogIndex;
+            int i1 = condition ? lastLogIndex : lastLogIndex;
+        condition ? i1 < listOfLogs.Count : i1 >= 0;
+            //   condition ? i1 < listOfLogs.Count : i1 >= lastLogIndex;
             i1 += condition ? 1 : -1)
             {
                 Log log = listOfLogs[i1];
-                if (!usedLogs[i1])
-                    if (condition)
+                //if (!usedLogs[i1])
+                if (condition)
+                {
+                    // Reverse time case
+
+                    // Check if log date is not more than desired date
+                    if (log.logdate <= backupTime)
                     {
-                        // Reverse time case
+                        // Update last log index
+                        lastLogIndex = i1;
 
-                        // Check if log date is not more than desired date
-                        if (log.logdate <= backupTime)
+                        // Show the log data
+                        Console.WriteLine(Environment.NewLine + "Found:");
+
+                        Console.WriteLine($"{log.changeType} '\t' {log.fileFullName} '\t' {log.logdate.ToShortDateString()} " +
+                            $"{log.logdate.ToLongTimeString()}'\t'");
+
+                        // Uncomment if file data representation is needed
+                        //Console.WriteLine("File data:");
+                        //foreach (var item in log._fileChanges)
+                        //{
+                        //    Console.WriteLine(item);
+                        //}
+
+                        // File was changed or file was saved initially 
+                        if (log.changeType == WatcherChangeTypes.Changed || log.changeType == default)
                         {
-                            // Update last log index
-                            lastLogIndex = i1;
-
-                            // Show the log data
-                            Console.WriteLine(Environment.NewLine + "Found:");
-
-                            Console.WriteLine($"{log.changeType} '\t' {log.fileFullName} '\t' {log.logdate.ToShortDateString()} " +
-                                $"{log.logdate.ToLongTimeString()}'\t'");
-
-                            // Uncomment if file data representation is needed
-                            //Console.WriteLine("File data:");
-                            //foreach (var item in log._fileChanges)
-                            //{
-                            //    Console.WriteLine(item);
-                            //}
-
-                            // File was changed or file was saved initially 
-                            if (log.changeType == WatcherChangeTypes.Changed || log.changeType == default)
+                            // Create or rewrite file using log file data
+                            using (StreamWriter sw = new StreamWriter(log.fileFullName))
                             {
-                                // Create or rewrite file using log file data
-                                using (StreamWriter sw = new StreamWriter(log.fileFullName))
+                                for (int i = 0; i < log._fileChanges.Count; i++)
                                 {
-                                    for (int i = 0; i < log._fileChanges.Count; i++)
-                                    {
-                                        // Use WriteAsync for the last line to evade undesired line
-                                        var t = i != log._fileChanges.Count - 1 ?
-                                            Task.Run(() => sw.WriteLineAsync(log._fileChanges[i]))
-                                            :
-                                            Task.Run(() => sw.WriteAsync(log._fileChanges[i]));
-                                        t.Wait();
-                                    }
+                                    // Use WriteAsync for the last line to evade undesired line
+                                    var t = i != log._fileChanges.Count - 1 ?
+                                        Task.Run(() => sw.WriteLineAsync(log._fileChanges[i]))
+                                        :
+                                        Task.Run(() => sw.WriteAsync(log._fileChanges[i]));
+                                    t.Wait();
                                 }
-
                             }
-                            // File was renamed
-                            else if (log.changeType == WatcherChangeTypes.Renamed)
+
+                        }
+                        // File was renamed
+                        else if (log.changeType == WatcherChangeTypes.Renamed)
+                        {
+                            if (i1 == LastLogIndexOld)
                             {
                                 if (File.Exists(log.fileOldName))
                                 {
-                                    // Create a copy of the file with old name and delete the old file
-                                    File.Copy(log.fileOldName, log.fileFullName, true);
+                                    // Create a copy of the file with new name and delete the old file
+                                    if (log.fileFullName != log.fileOldName)
+                                    {
+                                        File.Copy(log.fileOldName, log.fileFullName, true);
+                                    }
                                     File.Delete(log.fileOldName);
                                 }
-                                for (int i = lastLogIndex - 1; i >= 0; i--)
+                            }
+                            else
+                            if (File.Exists(log.fileOldName))
+                            {
+                                // Create a copy of the file with old name and delete the old file
+                                File.Copy(log.fileOldName, log.fileFullName, true);
+                                File.Delete(log.fileOldName);
+                            }
+                            else
+                            {
+                                for (int i = lastLogIndex + 1; i < listOfLogs.Count(); i++)
                                 {
-                                    if (listOfLogs[i].changeType == WatcherChangeTypes.Changed && !usedLogs[i])
+                                    if ((listOfLogs[i].changeType == WatcherChangeTypes.Renamed
+                                        && listOfLogs[i].fileOldName == log.fileOldName)
+                                       /* && !usedLogs[i]*/)
                                     {
-                                        // Create or rewrite file using log file data
-                                        using (StreamWriter sw = new StreamWriter(log.fileOldName))
-                                        {
-                                            for (int j = 0; j < listOfLogs[i]._fileChanges.Count; j++)
-                                            {
-                                                // Use WriteAsync for the last line to evade undesired line
-                                                var t = i != listOfLogs[i]._fileChanges.Count - 1 ?
-                                                    Task.Run(() => sw.WriteLineAsync(listOfLogs[i]._fileChanges[i]))
-                                                    :
-                                                    Task.Run(() => sw.WriteAsync(listOfLogs[i]._fileChanges[i]));
-                                                t.Wait();
-                                            }
-                                        }
-                                        usedLogs[i] = true;
+                                        File.Copy(listOfLogs[i].fileOldName, listOfLogs[i].fileFullName, true);
+                                        File.Delete(listOfLogs[i].fileOldName);
+                                        // usedLogs[i] = true;
                                         break;
                                     }
                                 }
+                                File.Delete(log.fileOldName);
                             }
-                            // File was created
-                            else if (log.changeType == WatcherChangeTypes.Created)
+
+                        }
+                        // File was created
+                        else if (log.changeType == WatcherChangeTypes.Created)
+                        {
+
+                            if (File.Exists(log.fileFullName))
+                            {
+
+                            }
+                            else
                             {
                                 // Create the file
                                 using (StreamWriter sw = new StreamWriter(log.fileFullName))
                                 {
 
                                 }
-
-                            }
-                            // File was deleted
-                            else if (log.changeType == WatcherChangeTypes.Deleted)
-                            {
-                                // Delete the file
-                                File.Delete(log.fileFullName);
                             }
 
                         }
-                        else
+                        // File was deleted
+                        else if (log.changeType == WatcherChangeTypes.Deleted)
                         {
-                            //Ignore all other logs
+                            // Delete the file
+                            File.Delete(log.fileFullName);
                         }
+
                     }
                     else
                     {
-                        // Forward time case
-                        // Every method runs as in previous case but in reverse mode
-                        // Check if log date is not less than desired date
-                        if (log.logdate >= backupTime)
+
+                        if (log.changeType == WatcherChangeTypes.Created)
                         {
-                            // Update log index
-                            lastLogIndex = i1;
-
-                            // Show the log data
-                            Console.WriteLine(Environment.NewLine + "Found:");
-                            Console.WriteLine($"{log.changeType} '\t' {log.fileFullName} '\t' {log.logdate.ToShortDateString()} " +
-                                $"{log.logdate.ToLongTimeString()}'\t'");
-
-                            // Uncomment if file data representation is needed
-                            //Console.WriteLine("File data:");
-                            //foreach (var item in log._fileChanges)
-                            //{
-                            //    Console.WriteLine(item);
-                            //}
-
-                            // File was changed or created initially
-                            if (log.changeType == WatcherChangeTypes.Changed || log.changeType == default)
+                            // Delete the file
+                            if (File.Exists(log.fileFullName))
                             {
-                                // Create or rewrite file using log file data
-                                using (StreamWriter sw = new StreamWriter(log.fileFullName))
+                                File.Delete(log.fileFullName);
+                            }
+                        }
+
+                        //Ignore all other logs
+                    }
+                }
+                else
+                {
+                    // Forward time case
+                    // Every method runs as in previous case but in reverse mode
+                    // Check if log date is not less than desired date
+                    if (log.logdate >= backupTime)
+                    {
+                        // Update log index
+                        lastLogIndex = i1;
+
+                        // Show the log data
+                        Console.WriteLine(Environment.NewLine + $"Line {lastLogIndex + 1}:");
+                        Console.WriteLine($"{log.changeType} '\t' {log.fileFullName} '\t' {log.logdate.ToShortDateString()} " +
+                            $"{log.logdate.ToLongTimeString()}'\t'");
+
+                        // Uncomment if file data representation is needed
+                        //Console.WriteLine("File data:");
+                        //foreach (var item in log._fileChanges)
+                        //{
+                        //    Console.WriteLine(item);
+                        //}
+
+
+                        //if (log.logdate == backupTime && log.changeType == WatcherChangeTypes.Created)
+                        //{
+                        //    if (File.Exists(log.fileFullName))
+                        //    {
+                        //        // Delete file
+                        //        File.Delete(log.fileFullName);
+                        //    }
+                        //    else
+                        //    {
+                        //        using (StreamWriter sw = new StreamWriter(log.fileFullName))
+                        //        { 
+
+                        //        }
+                        //    }
+                        //}
+                        //else
+
+                        // File was changed or created initially
+                        if (log.changeType == default)
+                        {
+                            // Create or rewrite file using log file data
+                            using (StreamWriter sw = new StreamWriter(log.fileFullName))
+                            {
+                                for (int j = 0; j < log._fileChanges.Count; j++)
                                 {
-                                    for (int i = 0; i < log._fileChanges.Count; i++)
-                                    {
-                                        // Use WriteAsync for the last line to evade undesired line
-                                        var t = i != log._fileChanges.Count - 1 ?
-                                            Task.Run(() => sw.WriteLineAsync(log._fileChanges[i]))
-                                            :
-                                            Task.Run(() => sw.WriteAsync(log._fileChanges[i]));
-                                        t.Wait();
-                                    }
+                                    // Use WriteAsync for the last line to evade undesired line
+                                    var t = j != log._fileChanges.Count - 1 ?
+                                        Task.Run(() => sw.WriteLineAsync(log._fileChanges[j]))
+                                        :
+                                        Task.Run(() => sw.WriteAsync(log._fileChanges[j]));
+                                    t.Wait();
                                 }
                             }
-                            // File was renamed
-                            else if (log.changeType == WatcherChangeTypes.Renamed)
+                        }
+                        else
+                        if (log.changeType == WatcherChangeTypes.Changed)
+                        {
+                            for (int i = lastLogIndex - 1; i >= 0; i--)
                             {
-                                if (File.Exists(log.fileFullName))
+                                if ((listOfLogs[i].changeType == WatcherChangeTypes.Changed
+                                    || listOfLogs[i].changeType == WatcherChangeTypes.Created
+                                    || listOfLogs[i].changeType == WatcherChangeTypes.Renamed)
+                                    && listOfLogs[i].fileFullName == log.fileFullName /* && !usedLogs[i]*/)
                                 {
-                                    // Create a copy of the file with new name and delete the old file
-                                    if (log.fileFullName != log.fileOldName)
+                                    // Create or rewrite file using log file data
+                                    using (StreamWriter sw = new StreamWriter(log.fileFullName))
                                     {
-                                        File.Copy(log.fileFullName, log.fileOldName, true);
-                                    }
-                                    File.Delete(log.fileFullName);
-                                }
-                                else
-                                {
-
-                                    for (int i = lastLogIndex - 1; i >= 0; i--)
-                                    {
-                                        if ((listOfLogs[i].changeType == WatcherChangeTypes.Changed
-                                            || listOfLogs[i].changeType == WatcherChangeTypes.Created) && !usedLogs[i])
+                                        for (int j = 0; j < listOfLogs[i]._fileChanges.Count; j++)
                                         {
-                                            // Create or rewrite file using log file data
-                                            using (StreamWriter sw = new StreamWriter(log.fileFullName))
-                                            {
-                                                for (int j = 0; j < listOfLogs[i]._fileChanges.Count; j++)
-                                                {
-                                                    // Use WriteAsync for the last line to evade undesired line
-                                                    var t = i != listOfLogs[i]._fileChanges.Count - 1 ?
-                                                        Task.Run(() => sw.WriteLineAsync(listOfLogs[i]._fileChanges[i]))
-                                                        :
-                                                        Task.Run(() => sw.WriteAsync(listOfLogs[i]._fileChanges[i]));
-                                                    t.Wait();
-                                                }
-                                            }
-                                            usedLogs[i] = true;
-                                            break;
+                                            // Use WriteAsync for the last line to evade undesired line
+                                            var t = j != listOfLogs[i]._fileChanges.Count - 1 ?
+                                                Task.Run(() => sw.WriteLineAsync(listOfLogs[i]._fileChanges[j]))
+                                                :
+                                                Task.Run(() => sw.WriteAsync(listOfLogs[i]._fileChanges[j]));
+                                            t.Wait();
                                         }
                                     }
+                                    // usedLogs[i] = true;
+                                    break;
                                 }
                             }
-                            // File was created
-                            else if (log.changeType == WatcherChangeTypes.Created)
-                            {
-                                if (File.Exists(log.fileFullName))
-                                {
-                                    // Delete file
-                                    File.Delete(log.fileFullName);
-                                }
-                                else
-                                {
 
-                                    for (int i = lastLogIndex + 1; i < listOfLogs.Count(); i++)
+
+                        }
+                        // File was renamed
+                        else if (log.changeType == WatcherChangeTypes.Renamed)
+                        {
+                            if (File.Exists(log.fileFullName))
+                            {
+                                // Create a copy of the file with new name and delete the old file
+                                if (log.fileFullName != log.fileOldName)
+                                {
+                                    File.Copy(log.fileFullName, log.fileOldName, true);
+                                }
+
+                                File.Delete(log.fileFullName);
+                            }
+                            else
+                            {
+
+                                for (int i = lastLogIndex - 1; i >= 0; i--)
+                                {
+                                    if ((listOfLogs[i].changeType == WatcherChangeTypes.Changed
+                                        || listOfLogs[i].changeType == WatcherChangeTypes.Created)
+                                       /* && !usedLogs[i]*/)
                                     {
-                                        if (listOfLogs[i].changeType == WatcherChangeTypes.Renamed
-                                            && listOfLogs[i].fileOldName == log.fileFullName
-                                            && !usedLogs[i])
+                                        // Create or rewrite file using log file data
+                                        using (StreamWriter sw = new StreamWriter(log.fileFullName))
                                         {
-                                            // Create a copy of the file with new name and delete the old file
-                                            if (listOfLogs[i].fileFullName != listOfLogs[i].fileOldName)
+                                            for (int j = 0; j < listOfLogs[i]._fileChanges.Count; j++)
+                                            {
+                                                // Use WriteAsync for the last line to evade undesired line
+                                                var t = j != listOfLogs[i]._fileChanges.Count - 1 ?
+                                                    Task.Run(() => sw.WriteLineAsync(listOfLogs[i]._fileChanges[j]))
+                                                    :
+                                                    Task.Run(() => sw.WriteAsync(listOfLogs[i]._fileChanges[j]));
+                                                t.Wait();
+                                            }
+                                        }
+                                        // usedLogs[i] = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        // File was created
+                        else if (log.changeType == WatcherChangeTypes.Created)
+                        {
+                            //if (File.Exists(log.fileFullName))
+                            //{
+                            //    // Delete file
+                            //    File.Delete(log.fileFullName);
+                            //}
+                            //else
+                            {
+
+                                for (int i = lastLogIndex + 1; i < listOfLogs.Count(); i++)
+                                {
+                                    if (listOfLogs[i].changeType == WatcherChangeTypes.Renamed
+                                        && listOfLogs[i].fileOldName == log.fileFullName
+                                        )
+                                    {
+                                        // Create a copy of the file with new name and delete the old file
+                                        if (listOfLogs[i].fileFullName != listOfLogs[i].fileOldName)
+                                        {
+                                            if (File.Exists(listOfLogs[i].fileFullName))
                                             {
                                                 File.Copy(listOfLogs[i].fileFullName, listOfLogs[i].fileOldName, true);
                                             }
-                                            File.Delete(listOfLogs[i].fileFullName);
-
-                                            usedLogs[i] = true;
-                                            break;
                                         }
+
+                                        if (File.Exists(listOfLogs[i].fileFullName))
+                                        {
+                                            File.Delete(listOfLogs[i].fileFullName);
+                                        }
+
+                                        // usedLogs[i] = true;
+                                        break;
                                     }
                                 }
-
                             }
-                            // File was deleted
-                            else if (log.changeType == WatcherChangeTypes.Deleted)
+
+                        }
+                        // File was deleted
+                        else if (log.changeType == WatcherChangeTypes.Deleted)
+                        {
+                            if (lastLogIndex != targetLogIndex)
                             {
+
                                 // Create empty file
                                 using (StreamWriter sw = new StreamWriter(log.fileFullName))
                                 {
@@ -591,7 +866,11 @@ namespace Task05
 
                                 for (int i = lastLogIndex - 1; i >= 0; i--)
                                 {
-                                    if (listOfLogs[i].changeType == WatcherChangeTypes.Changed && !usedLogs[i])
+                                    if ((listOfLogs[i].changeType == WatcherChangeTypes.Changed
+                                        || listOfLogs[i].changeType == WatcherChangeTypes.Created
+                                        || listOfLogs[i].changeType == WatcherChangeTypes.Renamed)
+                                        && listOfLogs[i].fileFullName == log.fileFullName
+                                        /*&& !usedLogs[i]*/)
                                     {
                                         // Create or rewrite file using log file data
                                         using (StreamWriter sw = new StreamWriter(log.fileFullName))
@@ -599,10 +878,10 @@ namespace Task05
                                             for (int j = 0; j < listOfLogs[i]._fileChanges.Count; j++)
                                             {
                                                 // Use WriteAsync for the last line to evade undesired line
-                                                var t = i != listOfLogs[i]._fileChanges.Count - 1 ?
-                                                    Task.Run(() => sw.WriteLineAsync(listOfLogs[i]._fileChanges[i]))
+                                                var t = j != listOfLogs[i]._fileChanges.Count - 1 ?
+                                                    Task.Run(() => sw.WriteLineAsync(listOfLogs[i]._fileChanges[j]))
                                                     :
-                                                    Task.Run(() => sw.WriteAsync(listOfLogs[i]._fileChanges[i]));
+                                                    Task.Run(() => sw.WriteAsync(listOfLogs[i]._fileChanges[j]));
                                                 t.Wait();
                                             }
                                         }
@@ -611,18 +890,49 @@ namespace Task05
                                     }
                                 }
 
-                                // Note: since we don't know the file data at the moment it
-                                // is not possible to restore this file unless we will not read
-                                // the previous logs
                             }
                         }
+
                     }
+                    else
+                    {
+                        break;
+                    }
+                }
                 usedLogs[i1] = true;
             }
+            if (!condition)
+            {
+                // Forward time case
+                for (int i = targetLogIndex + 1; i < listOfLogs.Count(); i++)
+                {
+                    Log log = listOfLogs[i];
+                    if (log.logdate > backupTime && log.changeType == WatcherChangeTypes.Created)
+                    {
+                        if (File.Exists(log.fileFullName))
+                        {
+                            File.Delete(log.fileFullName);
+                        }
+                        //
+                    }
+                }
+            }
+            else
+            {
+
+            }
             Console.WriteLine("Backup's been done.");
-            Console.WriteLine($"Current state date and time: {listOfLogs[lastLogIndex].logdate.ToShortDateString()}" +
-                $"+{listOfLogs[lastLogIndex].logdate.ToLongTimeString()}");
+            //Console.WriteLine($"Current state date and time: {listOfLogs[lastLogIndex].logdate.ToShortDateString()}" +
+            //    $"+{listOfLogs[lastLogIndex].logdate.ToLongTimeString()}");
+            Console.WriteLine($"Current state date and time: {listOfLogs[lastLogIndex].logdate.ToString()}, " +
+                        $"current log line: {lastLogIndex + 1}");
             Console.WriteLine("Enter the restore date and time:");
+
+            using (StreamWriter sw = new StreamWriter(lastLogIndexFileName))
+            {
+                sw.Write(lastLogIndex);
+            }
+
         }
 
         static List<Log> listOfLogs = new List<Log>();

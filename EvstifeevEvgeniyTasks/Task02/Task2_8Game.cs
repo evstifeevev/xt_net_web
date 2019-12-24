@@ -61,7 +61,7 @@ namespace Task02
                 public Monster[] Monsters = null;
                 public Bonus[] Bonuses = null;
                 public Field field = null;
-                private bool _finished = false;
+                //private bool _finished = false;
                 public Level(int countOfMonsters, int countOfBonuses, Obstacle[] obstacles) { 
                     
                 }
