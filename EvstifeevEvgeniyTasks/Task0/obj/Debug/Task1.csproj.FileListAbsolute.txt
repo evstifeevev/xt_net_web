@@ -1,0 +1,12 @@
+K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\bin\Debug\EvstifeevEvgeniyTasks.exe.config
+K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\bin\Debug\EvstifeevEvgeniyTasks.exe
+K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\bin\Debug\EvstifeevEvgeniyTasks.pdb
+K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\obj\Debug\EvstifeevEvgeniyTasks.exe
+K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\obj\Debug\EvstifeevEvgeniyTasks.pdb
+K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\obj\Debug\Task1.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\bin\Debug\EvstifeevEvgeniyTasks.exe.config
+K:\xt_net_web\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\bin\Debug\EvstifeevEvgeniyTasks.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\bin\Debug\EvstifeevEvgeniyTasks.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\obj\Debug\Task1.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\obj\Debug\EvstifeevEvgeniyTasks.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\obj\Debug\EvstifeevEvgeniyTasks.pdb

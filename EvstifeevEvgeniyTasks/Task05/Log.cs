@@ -7,9 +7,14 @@ using System.IO;
 
 namespace Task05
 {
-    internal class Log
+    public class Log
     {
-        internal WatcherChangeTypes changeType = default;
+        public WatcherChangeTypes changeType = default;
+        public DateTime logdate { get; } = default;
+        public string fileFullName { get; } = default;
+        public string fileOldName { get; } = default;
+        public List<string> _fileChanges { get; } = new List<string>();
+        public List<int> _fileChangePosition { get; } = new List<int>();
         public Log(DateTime logDate, string fileFullName, string fileOldName, WatcherChangeTypes changeType)
         {
             this.logdate = logDate;
@@ -18,13 +23,7 @@ namespace Task05
             this.changeType = changeType;
 
         }
-        internal DateTime logdate { get; } = default;
-        internal string fileFullName { get; } = default;
-        internal string fileOldName { get; } = default;
-        internal List<string> _fileChanges { get; } = new List<string>();
-        internal List<int> _fileChangePosition { get; } = new List<int>();
-
-        internal void AddAllLines(List<string> lines)
+        public void AddAllLines(List<string> lines)
         {
             _fileChanges.AddRange(lines);
             for (int i = 0; i < lines.Count; i++)
@@ -32,12 +31,12 @@ namespace Task05
                 _fileChangePosition.Add(i);
             }
         }
-        internal void AddChangedLine(int position, string changedLine)
+        public void AddChangedLine(int position, string changedLine)
         {
             _fileChanges.Add(changedLine);
             _fileChangePosition.Add(position);
         }
-        internal void RemoveLine(int position, string removableLine)
+        public void RemoveLine(int position, string removableLine)
         {
             for (int i = _fileChanges.Count; i >= 0; i--)
             {
