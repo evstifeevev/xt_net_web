@@ -1,0 +1,9 @@
+K:\EPAM\Inheritance Exapmples Upcast Downcast\Common\Common\bin\Debug\Common.dll
+K:\EPAM\Inheritance Exapmples Upcast Downcast\Common\Common\bin\Debug\Common.pdb
+K:\EPAM\Inheritance Exapmples Upcast Downcast\Common\Common\obj\Debug\Common.dll
+K:\EPAM\Inheritance Exapmples Upcast Downcast\Common\Common\obj\Debug\Common.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Common\Common\bin\Debug\Common.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Common\Common\bin\Debug\Common.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Common\Common\obj\Debug\Common.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Common\Common\obj\Debug\Common.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Common\Common\obj\Debug\Common.pdb
