@@ -1,5 +1,0 @@
-K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\bin\Release\EvstifeevEvgeniyTasks.exe.config
-K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\bin\Release\EvstifeevEvgeniyTasks.exe
-K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\bin\Release\EvstifeevEvgeniyTasks.pdb
-K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\obj\Release\EvstifeevEvgeniyTasks.exe
-K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\obj\Release\EvstifeevEvgeniyTasks.pdb

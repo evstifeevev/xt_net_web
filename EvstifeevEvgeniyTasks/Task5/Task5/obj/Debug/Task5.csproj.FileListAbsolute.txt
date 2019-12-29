@@ -1,0 +1,9 @@
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task5\Task5\bin\Debug\Task05.exe.config
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task5\Task5\bin\Debug\Task05.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task5\Task5\bin\Debug\Task05.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task5\Task5\bin\Debug\Newtonsoft.Json.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task5\Task5\bin\Debug\Newtonsoft.Json.xml
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task5\Task5\obj\Debug\Task5.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task5\Task5\obj\Debug\Task5.csproj.CopyComplete
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task5\Task5\obj\Debug\Task05.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task5\Task5\obj\Debug\Task05.pdb

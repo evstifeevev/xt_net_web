@@ -1,6 +1,0 @@
-K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\bin\Debug\EvstifeevEvgeniyTasks.exe.config
-K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\bin\Debug\EvstifeevEvgeniyTasks.exe
-K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\bin\Debug\EvstifeevEvgeniyTasks.pdb
-K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\obj\Debug\Task01.csprojAssemblyReference.cache
-K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\obj\Debug\EvstifeevEvgeniyTasks.exe
-K:\Source\Repos\EvstifeevEvgeniyTasks\EvstifeevEvgeniyTasks\obj\Debug\EvstifeevEvgeniyTasks.pdb

@@ -1,0 +1,5 @@
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAL\bin\Debug\DAL.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAL\bin\Debug\DAL.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAL\obj\Debug\DAL.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAL\obj\Debug\DAL.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAL\obj\Debug\DAL.pdb
