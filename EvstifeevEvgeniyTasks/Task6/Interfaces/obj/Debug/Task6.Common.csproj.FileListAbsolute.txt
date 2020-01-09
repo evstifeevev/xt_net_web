@@ -1,0 +1,18 @@
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\bin\Debug\Interfaces.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\bin\Debug\Interfaces.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\bin\Debug\Entities.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\bin\Debug\Entities.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\obj\Debug\Task6.Common.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\obj\Debug\Task6.Common.csproj.CopyComplete
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\obj\Debug\Interfaces.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\obj\Debug\Interfaces.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\bin\Debug\Newtonsoft.Json.dll
+K:\Task6 Copies\Task6\Interfaces\bin\Debug\Interfaces.dll
+K:\Task6 Copies\Task6\Interfaces\bin\Debug\Interfaces.pdb
+K:\Task6 Copies\Task6\Interfaces\bin\Debug\Entities.dll
+K:\Task6 Copies\Task6\Interfaces\bin\Debug\Newtonsoft.Json.dll
+K:\Task6 Copies\Task6\Interfaces\bin\Debug\Entities.pdb
+K:\Task6 Copies\Task6\Interfaces\obj\Debug\Task6.Common.csprojAssemblyReference.cache
+K:\Task6 Copies\Task6\Interfaces\obj\Debug\Task6.Common.csproj.CopyComplete
+K:\Task6 Copies\Task6\Interfaces\obj\Debug\Interfaces.dll
+K:\Task6 Copies\Task6\Interfaces\obj\Debug\Interfaces.pdb

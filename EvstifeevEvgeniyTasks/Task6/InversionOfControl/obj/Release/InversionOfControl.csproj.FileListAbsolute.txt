@@ -1,0 +1,15 @@
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Release\InversionOfControl.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Release\InversionOfControl.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Release\BLL.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Release\DAO.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Release\Interfaces.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Release\Entities.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Release\Newtonsoft.Json.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Release\BLL.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Release\DAO.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Release\Interfaces.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Release\Entities.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\obj\Release\InversionOfControl.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\obj\Release\InversionOfControl.csproj.CopyComplete
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\obj\Release\InversionOfControl.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\obj\Release\InversionOfControl.pdb

@@ -1,0 +1,11 @@
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Release\DAO.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Release\DAO.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Release\Entities.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Release\Interfaces.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Release\Newtonsoft.Json.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Release\Entities.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Release\Interfaces.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\obj\Release\Task6.DAL.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\obj\Release\Task6.DAL.csproj.CopyComplete
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\obj\Release\DAO.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\obj\Release\DAO.pdb

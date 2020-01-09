@@ -1,0 +1,14 @@
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Entities\bin\Debug\Entities.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Entities\bin\Debug\Entities.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Entities\obj\Debug\Task6.Entities.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Entities\obj\Debug\Entities.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Entities\obj\Debug\Entities.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Entities\bin\Debug\Newtonsoft.Json.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Entities\obj\Debug\Task6.Entities.csproj.CopyComplete
+K:\Task6 Copies\Task6\Entities\bin\Debug\Entities.dll
+K:\Task6 Copies\Task6\Entities\bin\Debug\Entities.pdb
+K:\Task6 Copies\Task6\Entities\bin\Debug\Newtonsoft.Json.dll
+K:\Task6 Copies\Task6\Entities\obj\Debug\Task6.Entities.csproj.CopyComplete
+K:\Task6 Copies\Task6\Entities\obj\Debug\Entities.dll
+K:\Task6 Copies\Task6\Entities\obj\Debug\Entities.pdb
+K:\Task6 Copies\Task6\Entities\obj\Debug\Task6.Entities.csprojAssemblyReference.cache

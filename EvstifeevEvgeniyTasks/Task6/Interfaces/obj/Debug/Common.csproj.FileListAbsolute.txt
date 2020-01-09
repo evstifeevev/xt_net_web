@@ -2,3 +2,4 @@ K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\bin\Debug\Interfaces.dll
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\bin\Debug\Interfaces.pdb
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\obj\Debug\Interfaces.dll
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\obj\Debug\Interfaces.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Interfaces\obj\Debug\Common.csprojAssemblyReference.cache

@@ -1,5 +1,0 @@
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\Task6.exe.config
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\Task6.exe
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\Task6.pdb
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\obj\Debug\Task6.exe
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\obj\Debug\Task6.pdb
