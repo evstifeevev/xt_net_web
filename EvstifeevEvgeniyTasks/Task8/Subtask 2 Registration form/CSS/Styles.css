@@ -1,0 +1,55 @@
+#main{
+    border: solid 3px rgb(1, 125, 187);
+    width: 400px;
+    background-color: rgb(6, 144, 207);
+    color: white;
+    font-family: 'Arial';
+    font-size: 14px;
+}
+p{
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+#header{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+.password-input-wrapper{
+    display: inline-block;
+    width: 138px;
+    margin-right: 20px;
+    margin-left: 0;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.password-input-wrapper>input{
+    display: inline-block;
+    width: 138px;
+    margin: 0;
+    border: 0;
+}
+.registration.form{
+    width: 330px;
+    margin-right: 50px;
+    margin-left: 20px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+}
+#inputEmail{
+    border: none;
+    margin-right: 0;
+    width: 300px;
+    display: block;
+}
+#ButtonSend{
+    width:fit-content;
+    margin-top: 10px;
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: none;
+    color: black;
+    background-color: rgb(255, 223, 127);
+}
