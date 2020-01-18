@@ -1,0 +1,72 @@
+:root{
+    --main-background-color: rgb(78, 99, 121);
+    --theme-color: rgb(245, 99, 50);
+    --block-border-color:  rgb(230, 230, 230);
+}
+body{
+    font-family: Arial;
+    font-size: 12px;
+    background-color: var(--main-background-color);
+}
+.blocks.container{
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 20px 30px -1px rgb(41, 51, 63);
+    width: 700px;
+    border: 1px solid var(--block-border-color);
+    padding: 10px 0;
+}
+.left.block, .right.block, .middle.block{
+    display: inline-block;
+    width: 32.9%;
+    border-right: 1px solid var(--block-border-color);
+}
+.right.block{
+    border-right: unset;
+}
+.block ul{
+    padding-left: 0px;
+    list-style: none;
+}
+.block li{
+    width: fit-content;
+    margin: 10px auto;
+}
+.block .title{
+    font-weight: bold;
+    font-size: 16px;
+    color: var(--theme-color);
+    margin-bottom: 15px;
+    margin-top: 20px;
+}
+.block button{
+    color: white;
+    background-color: var(--theme-color);
+    font-size: 12px;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.blocks .picture{
+    content: '';
+    height: 42px;
+    width: 61px;
+    background-image: url(../Images/Icons.png);
+    background-repeat: no-repeat;
+   /* background-size: auto;*/
+    background-position-x: center;
+    background-clip: padding-box;
+}
+.middle.block .picture{
+    margin-top: -40px;
+    height: 84px;
+    background-clip: unset;
+    clip-path: inset(43px 0px 0px 0px);
+}
+.right.block .picture{
+    margin-top: -80px;
+    height: 128px;
+    background-clip: unset;
+    clip-path: inset(85px 0px 0px 0px);
+}
