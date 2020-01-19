@@ -1,0 +1,32 @@
+:root{
+    --header-background-color: rgb(0, 139, 102);
+    --text-background-color: rgb(223, 230, 225);
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 16px;
+}
+.header, .text{
+    position: relative;
+    padding: 10px;
+    overflow-wrap: break-word;
+}
+.header{
+    display: block;
+    align-items: center;
+    font-size: 20px;
+    margin: 8px;
+    color: white;
+    background-color: var(--header-background-color);
+    z-index: 1;
+}
+.text{
+    background-color: var(--text-background-color);
+    z-index: 5;
+    top: -13px;
+    left: 40px;
+    margin-right: 47px;
+    border: 1px solid white;
+}
