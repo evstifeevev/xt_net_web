@@ -1,0 +1,49 @@
+:root{
+    --header-color: rgb(252, 175, 89);
+    --active-button-mid-color: rgb(103, 198, 34);
+    --active-button-edge-color: rgb(178, 226, 143);
+    --inactive-button-mid-color: rgb(191, 191, 191);
+    --inactive-button-edge-color: rgb(222, 222, 222);
+}
+body{
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+}
+.wrapper{
+    position: absolute;
+    width: 440px;
+    margin: 10px;
+}
+.wrapper ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+li{
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    width: 100px;
+    height: 30px;
+    background: linear-gradient(to bottom, var(--inactive-button-edge-color), 
+    var(--inactive-button-mid-color), var(--inactive-button-edge-color));
+    clip-path: polygon(0 0, 95% 0, 100% 50%, 95% 100%, 
+    0 100%, 5% 50%);
+}
+li:first-of-type{
+    clip-path: polygon(0 0, 95% 0, 100% 50%, 95% 100%, 
+    0 100%);
+}
+li:last-of-type{
+    clip-path: polygon(0 0, 95% 0, 95% 100%, 
+    0 100%, 5% 50%);
+}
+li.active {
+    color: white;
+    background: linear-gradient(to bottom, var(--active-button-edge-color), 
+    var(--active-button-mid-color), var(--active-button-edge-color));
+}
