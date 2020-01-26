@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" type="text/css" href="CSS/Styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Мои настройки</title>
+</head>
+<body>
+  <div class="header">
+    <div class="header wrapper">
+      <div class="Logo">
+        <img src="Images/logo.jpg" alt="Логотип ВК.">
+      </div>
+      <div id="search_bar">
+        <img src="Images/Search.jpg" alt="Поле для поиска.">
+      </div>
+      <div class="Notification icon">
+        <img src="Images/Notifications.jpg" alt="Уведомления.">
+      </div>
+      <div class="Music bar">
+        <img src="Images/Music.jpg" alt="Текущий трек.">
+      </div>
+      <div class="user panel">
+        <img src="Images/User.jpg" alt="Панель пользователя.">
+      </div>
+    </div>
+  </div>
+  <div class=main>
+  <div class="left column">
+    <ul class="common">
+      <li><a href="#">Моя страница</a></li>
+      <li><a href="#">Новости</a></li>
+      <li><a href="#">Сообщения</a></li>
+      <li><a href="#">Друзья</a></li>
+      <li><a href="#">Сообщества</a></li>
+      <li><a href="#">Фотографии</a></li>
+      <li><a href="#">Музыка</a></li>
+      <li><a href="#">Видео</a></li>
+      <li><a href="#">Игры</a></li>
+    </ul>
+    <ul class="additional">
+      <li><a href="#">Товары</a></li>
+      <li><a href="#">Закладки</a></li>
+      <li><a href="#">Документы</a></li>
+    </ul>
+    <div class="footer">
+      <ul>
+        <li><a href="#">Блог</a></li>
+        <li><a href="#">Разработчикам</a></li>
+        <li><a href="#">Реклама</a></li>
+        <li><a href="#">Ещё</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="mid column" class="main">
+    <h2 class="main-header">Общее</h2>
+      <ul class="options">
+        <li class ="item">
+          <div class="title">Меню сайта</div>
+          <div class="text"><a href="#">Настроить отображение пунктов меню</a></div>
+        </li>
+        <li class ="item">
+          <div class="title">Настройки профиля</div>
+          <div class="checkboxes">
+            <ul>
+              <li><input type="checkbox">Скрывать блок подарков</li>
+              <li><input type="checkbox">При октрытии профиля
+                 показывать мои записи</li>
+              <li><input type="checkbox">Отключить комментирование 
+                записей</li>
+              <li id="special_options"> 
+                <div><input type="checkbox"  checked="true">Специальные 
+                возможности</div>
+                <div id="question_mark">?</div>
+              </li>
+            </ul>
+          </div>
+        </li>
+       <li class ="item">
+          <div class="title">Настройки контента</div>
+          <div class="checkboxes">
+            <ul>
+              <li><input type="checkbox" checked="true">
+                Автоматически воспроизводить видео</li>
+              <li><input type="checkbox" checked="true">
+                Автоматически воспроизводить 
+                GIF-анимации</li>
+              <li><input type="checkbox" checked="true">
+                Подсказывать стикеры в полях ввода</li>
+              <li><input type="checkbox">Автоматически 
+                отмечать друзей на фотографиях</li>
+            </ul>
+          </div>
+          <div class="text">Сортировка комментариев: 
+          <a href="#">сначала интересные</a>
+          </div>
+          <div class="text"><a href="#">Посмотреть заблокированные
+             приложения</a</div>
+        </li>
+        <li class ="item" id="password_option">
+          <a></a> <!--This fixes another a that wrappes 
+            all divs in this item-->
+          <div class="title">Пароль</div>
+          <div class="text">обновлён четыре года назад</div>
+          <a href="#">Изменить</a>
+        </li>
+        <li class ="item">
+          <div class="title">"Электронная почта"</div>
+          <div class="text">ge***@yandex.ru</div>
+          <a href="#">Изменить</a>
+        </li>
+        <li class ="item">
+          <div class="title">Номер телефона</div>
+          <div class="text">+7 *** *** ** 23</div>
+          <a href="#">Изменить</a>
+        </li>
+        <li class ="item">
+          <div class="title">Адрес страницы</div>
+          <div class="text" id="page_adress_option_adress">
+            <div class="part1">https://vk.com/</div><div class="part2"><a href="#">rulethenation</a></div>
+          </div>
+          <a href="#">Изменить</a>
+        </li>
+        <li class ="item">
+          <div class="title">Верификация</div>
+          <div class="text">Страница не верифицирована</div>
+          <a href="#">Подать заявку</a>
+        </li>
+        <li class ="item">
+          <div class="title">Язык</div>
+          <div class="text">Русский</div>
+          <a href="#">Изменить</a>
+        </li>
+      </ul>
+      <div id="deletePage" class ="inner-footer">
+        Вы можете <a href="#">удалить свою страницу</a>.
+      </div>
+  </div>
+  <div class="right column" class="options">
+    <ul class="settings-options">
+      <li><a href="#">Общее</a></li>
+      <li><a href="#">Безопасность</a></li>
+      <li><a href="#">Приватность</a></li>
+      <li><a href="#">Уведомления</a></li>
+      <li><a href="#">Черный список</a></li>
+      <li><a href="#">Настройки приложений</a></li>
+      <li><a href="#">Мобильные сервисы</a></li>
+      <li><a href="#">Платежи, подписки, переводы</a></li>
+    </ul>
+  </div>
+</div>
+  <div class="messenger">
+
+  </div>
+</body>
+</html>

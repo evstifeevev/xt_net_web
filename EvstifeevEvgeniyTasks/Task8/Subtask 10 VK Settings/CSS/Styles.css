@@ -1,0 +1,204 @@
+:root{
+    --body-background-color: rgb(237, 238, 240);
+    --header-background-color: rgb(74, 118, 168);
+    --dark-color: rgb(34, 75, 122);
+    --light-color: rgb(191, 206, 224);
+    --mid-gray-color: rgb(101, 101, 101);
+    --ref-color: rgb(42, 93, 136);
+    --border-color: rgb(231, 232, 236);
+    --secondary-header-background-color: rgb(250, 251, 252);  
+}
+body{
+    margin: 0;
+    padding: 0;
+    background-color: var(--body-background-color);
+    font-family: -apple-system,BlinkMacSystemFont,Roboto,
+    Open Sans,Helvetica Neue,"Noto Sans Armenian"
+    ,"Noto Sans Bengali","Noto Sans Cherokee","Noto Sans Devanagari"
+    ,"Noto Sans Ethiopic","Noto Sans Georgian","Noto Sans Hebrew"
+    ,"Noto Sans Kannada","Noto Sans Khmer","Noto Sans Lao"
+    ,"Noto Sans Osmanya","Noto Sans Tamil","Noto Sans Telugu"
+    ,"Noto Sans Thai",sans-serif;
+    font-size: 13px;
+}
+.header{
+    display: block;
+    float: top;
+    background-color: var(--header-background-color);
+    height: 42px;
+}
+.main, .header.wrapper{
+    display: flex;
+    justify-content: center;
+    min-width: 1000px;
+    width: 100%;
+    padding-top: 15px;
+}
+.header.wrapper{
+    padding-top: 0px;
+    align-items: center;
+}
+.header.wrapper>div{
+    display: flex;  
+    margin: 0 40px;
+}
+.header.wrapper>div>img{
+    height: max-content;
+    cursor: pointer;
+    position: relative;
+    left: 15px;
+}
+.Logo{
+    position: relative;
+    left: -10px;
+}
+#search_bar>img{
+    cursor: text;
+    position: relative;
+    left: 58px;
+}
+.Notification.icon{
+    position: relative;
+    left: -5px;
+}
+.Music.bar{
+    position: relative;
+    left: -50px;
+}
+.user.panel{
+    position: relative;
+    left: -35px;
+}
+
+ul{
+    list-style: none;
+    padding: 0;
+}
+a{
+    color: var(--ref-color);
+    text-decoration: none;
+}
+.column{
+    display: block;
+    height: 100%;
+}
+.left.column{
+    margin: 5px 10px 10px 10px;
+    width: 140px;
+    min-width: 140px;
+}
+.left.column li{
+    margin: 10px 5px;
+}
+.left.column>ul>li:first-of-type{
+    margin-top: 0;
+}
+.left.column>.common{
+    margin-top: 0;
+}
+.mid.column>ul>li{
+    margin: 20px 5px;
+    display: block;
+}
+.mid.column{
+    position: relative;
+    width: 550px;
+    min-width: 550px;
+    background-color: white;
+    border-radius: 5px;
+    border: solid 1px var(--border-color);
+}
+
+.mid.column .title{
+    color: var(--mid-gray-color);
+    float: left;
+    width: 150px;
+    margin: 0px 10px 0 0;
+}
+.right.column{
+    padding: 0 5px 0 20px;
+    margin-left: 14px;
+    width: 200px;
+    min-width: 200px;
+    background-color: white;
+    border-radius: 5px;
+    border: solid 1px var(--border-color);
+}
+.right.column li{
+    margin: 20px 5px 0 0;
+}
+.settings-options>li:first-of-type{
+    margin-top: 0;
+}
+.mid.column .item {
+    position: relative;
+    padding: 15px 14px 0;
+    display: block;
+}
+.mid.column .item .text{
+    margin: 0px 10px 0 150px;
+}
+ .item>a{
+    position: absolute;
+    right: 20px;
+    top: 35%;
+}
+.item>title{
+    justify-self: flex-start;
+}
+#deletePage{
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    border-top: solid 1px var(--border-color);
+}
+.mid.column>.main-header{
+    font-weight: 100;
+    font-size: 16px;
+    padding: 20px;
+    margin: 0;
+    background-color: var(--secondary-header-background-color);
+}
+.mid.column>.options{
+    border-top: solid 1px var(--border-color);
+    display: block;
+    margin-top:0;
+}
+.mid.column>.options>li{
+    margin: 0px;
+    padding: 21px;
+    border: solid 1px var(--border-color);
+    border-left: none; border-right: none;
+    border-bottom: none;
+}
+.mid.column>.options>li:first-of-type{
+    border: none;
+}
+.checkboxes{
+    display: inline-block;
+    margin: -20px 10px 0 146px;
+}
+.main .footer{ 
+    border-top: solid 1px var(--border-color);
+    padding: 0;
+}
+.main .footer>ul>li{
+    font-size: 12px;
+    display: inline-block;
+    margin: 0;
+}
+.main .additional{
+    border-top: solid 1px var(--border-color);
+    padding-top: 10px;
+}
+#page_adress_option_adress>div{
+    display: inline;
+}
+#special_options>div{
+    display: inline;
+}
+#question_mark{
+    cursor: pointer;
+}
