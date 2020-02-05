@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <link rel="stylesheet" type="text/css" href="CSS/Styles.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Butterfly control</title>
+    
+</head>
+<body>
+    <div class="butterfly control wrapper">
+        <div class="available options">
+            <label class="list label">Available</label>
+            <form id="selectable">
+            <select name = "items" class="available items" multiple id="list1">
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+                <option>Option 4</option>
+                <option>Option 5</option>
+            </select>
+            </form>
+        </div>
+        <div class="buttons">
+            <button class="addAllButton">>></button>
+            <button class="addButton">></button>
+            <button class="removeButton"><</button>
+            <button class="removeAllButton"><<</button>
+        </div>
+        
+        <div class="selected options">
+            <label class="list label">Selected</label>
+            <form id="removable">
+            <select name = "items" class="selected items" multiple id="list2">
+            </select>
+            </form>
+        </div>
+    </div>
+
+    <div class="butterfly control wrapper">
+        <div class="available options">
+            <label class="list label">Available</label>
+            <form id="selectable">
+            <select name = "items" class="available items" multiple id="list1">
+                <option>Option 1</option>
+                <option>Option 2</option>
+                <option>Option 3</option>
+                <option>Option 4</option>
+                <option>Option 5</option>
+            </select>
+            </form>
+        </div>
+        <div class="buttons">
+            <button class="addAllButton">>></button>
+            <button class="addButton">></button>
+            <button class="removeButton"><</button>
+            <button class="removeAllButton"><<</button>
+        </div>
+        
+        <div class="selected options">
+            <label class="list label">Selected</label>
+            <form id="removable">
+            <select name = "items" class="selected items" multiple id="list2">
+            </select>
+            </form>
+        </div>
+    </div>
+    <script src="Scripts/dualSelect.js" id="dualSelect"></script>
+</body>
+</html>
