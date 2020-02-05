@@ -1,0 +1,19 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+.timerWrapper{
+    font-size: 50px;
+    height: 100px;
+    width: 500px;
+}
+#timer{
+    display: inline-block;
+}
+.controlsWrapper{
+    white-space: nowrap;
+}
+img{
+    margin-top: 30px;
+    max-width: 90%;
+    max-height: 600px;
+}
