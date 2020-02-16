@@ -1,0 +1,162 @@
+﻿@using Task6.InversionOfControl;
+@using Task6.Entities;
+@using Task6.Interfaces
+@{
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~");
+    }
+    Layout = "~/Layouts/_MainLayout.cshtml";
+    Page.Title = "Get data";
+    string selectedAward = string.Empty;
+    string selectedAwards = string.Empty;
+    string selectedUsers = string.Empty;
+    string userImage = string.Empty;
+    string awardImage = string.Empty;
+    string targetId = string.Empty;
+    WebImage targetImage = null;
+    string selectedUser = "selected";
+    string result = "failed";
+    string userName = string.Empty;
+    string awardTitle = string.Empty;
+    DateTime dateOfBirth = DateTime.MaxValue;
+    var awardsOfUser = new List<Award>();
+    var usersOfAward = new List<User>();
+    string userId = string.Empty;
+    string awardId = string.Empty;
+    string usersIds = string.Empty;
+    string awardsIds = string.Empty;
+
+    if (IsPost)
+    {
+        var selected = Request["type of entity"];
+
+        var id = int.Parse(Request["targetId"]);
+
+        if (selected == "user")
+        {
+            selectedAward = "none";
+            selectedUsers = "none";
+            selectedAwards = "none";
+
+            //userName = Request["userName"];
+
+
+            //dateOfBirth = DateTime.Parse(Request["dateOfBirth"]);
+
+            //userImage = Request["user Image"];
+
+            var userLogic = DependencyResolver.UserLogic;
+
+            if (DateTime.TryParse(Request["dateOfBirth"], out dateOfBirth))
+            {
+                userLogic.ChangeDateOfBirth(id, dateOfBirth);
+            }
+
+            if (Request["userName"] != null && Request["userName"] != "")
+            {
+                userName = Request["userName"];
+                userLogic.ChangeName(id, userName);
+            }
+
+            var photo = WebImage.GetImageFromRequest();
+            if (photo != null)
+            {
+                targetImage = photo;
+                var newfilename = Guid.NewGuid().ToString() + "_" +
+                    Path.GetFileName(photo.FileName);
+                var imagePath = @"~\images\" + newfilename;
+                userLogic.ChangeImageLink(id, @"\Images\" + newfilename);
+                photo.Save(imagePath);
+            }
+
+            //userLogic.ChangeImageLink(id, userImage);
+
+            result = "Success";
+        }
+        else if (selected == "award")
+        {
+            selectedUser = "none";
+            selectedUsers = "none";
+            selectedAwards = "none";
+
+
+
+            var awardLogic = DependencyResolver.AwardLogic;
+
+            if (Request["awardTitle"] != null && Request["awardTitle"] != "")
+            {
+                awardTitle = Request["awardTitle"];
+                awardLogic.ChangeTitle(id, awardTitle);
+            }
+
+            var photo = WebImage.GetImageFromRequest();
+            if (photo != null)
+            {
+                var newfilename = Guid.NewGuid().ToString() + "_" +
+                    Path.GetFileName(photo.FileName);
+                var imagePath = @"~\images\" + newfilename;
+                awardLogic.ChangeImageLink(id, "/Images/" + newfilename);
+                photo.Save(imagePath);
+            }
+
+            result = "Success";
+        }
+    }
+}
+
+<form action="~/Pages/edit.cshtml" method="post" enctype="multipart/form-data">
+    <div class="getOptions" id="getOptions">
+        <label>Choose the entity.</label>
+        <select name="type of entity" id="selectEntity">
+            <option value="user" @selectedUser>User</option>
+            <option value="award" @selectedAward>Award</option>
+        </select>
+    </div>
+    <input type="text" id="targetId" name="targetId" value="@targetId" />
+    <label for="targetId">Id</label>
+    <div class="remove user" style="display:@(selectedUser==string.Empty ? "none" : "")" id="addUser">
+        <label>Changes user's properties.</label>
+        <input type="text" id="userName" name="userName" value="@userName" />
+        <label for="userName">Name</label>
+        @{
+            var now = DateTime.Now.ToShortDateString();
+        }
+        <input type="date" id="addUserDateOfBirth" min="1880-06-01" max="@now.Substring(6)-@now.Substring(3, 2)-@now.Substring(0, 2)" name="dateOfBirth" value="@dateOfBirth.ToString().Substring(6)-@dateOfBirth.ToString().Substring(3, 2)-@dateOfBirth.ToString().Substring(0, 2)" />
+        <label for="addUserDateOfBirth">Date of birth</label>
+    </div>
+    <div class="add award" style="display:@(selectedAward==string.Empty ? "none" : "")" id="addAward">
+        <label>Adds award with specified title</label>
+        <input type="text" id="addAwardTitle" name="awardTitle" value="@awardTitle" />
+        <label for="addAwardTitle">Title</label>
+    </div>
+    <input type="file" id="userImage" name="Image" value=@targetImage />
+    <label for="userImage">Change image</label>
+    @*<input type="file" id="awardImage" name="Image" value=@awardImage />
+        <label for="userImage">Change award's image</label>*@
+    <input type="submit" id="submit">Submit</input>
+</form>
+<div id="result">@result</div>
+
+<script src="~/Scripts/jquery-3.0.0.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
+<script>
+    $("#selectEntity").change(function () {
+        var typeOfEntity = document.getElementById('selectEntity').value;
+
+        var addUser = document.getElementById('addUser');
+        var addAward = document.getElementById('addAward');
+
+        if (typeOfEntity == 'user') {
+            console.log('user');
+            addAward.style.display = "none";
+            addUser.style.display = "block";
+        }
+        else if (typeOfEntity == 'award') {
+            console.log('award');
+            addAward.style.display = "block";
+            addUser.style.display = "none";
+        }
+    });
+</script>

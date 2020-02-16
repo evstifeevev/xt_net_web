@@ -22,7 +22,7 @@ namespace Task6.Entities
         /// <summary>
         /// Award's title.
         /// </summary>
-        public string Title = "";
+        //public string Title = "";
         #endregion
 
         #region Award constructor
@@ -31,7 +31,7 @@ namespace Task6.Entities
         /// </summary>
         /// <param name="title"> Award's title. </param>
         [JsonConstructor]
-        public Award(string title) 
+        public Award(string title, string imageLink="") 
         {
             // Check the data for correctness.
             if(title == null)
@@ -51,6 +51,7 @@ namespace Task6.Entities
 
             // Set the values.
             this.Title = title;
+            this.ImageLink = imageLink;
             this.Users = new List<User>();
         }
         #endregion
@@ -62,14 +63,38 @@ namespace Task6.Entities
         [JsonIgnore]
         public ICollection<User> Users { get; set; }
 
+        public string Title
+        {
+            get => _title;
+            private set { _title = value; }
+        }
+
+        public string ImageLink
+        {
+            get => _imageLink;
+            private set { _imageLink = value; }
+        }
+
+        public void ChangeTitle(string newTitle)
+        {
+            Title = newTitle;
+        }
+        public void ChangeImageLink(string newImageLink)
+        {
+            ImageLink = newImageLink;
+        }
+
         /// <summary>
         /// Cast this object to string.
         /// </summary>
         /// <returns> Award's id and title. </returns>
         public override string ToString()
         {
-            return $"Id: {Id}, Title: {Title}";
+            return $"Id: {Id}, Title: {Title}. ";
         }
         #endregion
+
+        private string _title = string.Empty;
+        private string _imageLink = string.Empty;
     }
 }

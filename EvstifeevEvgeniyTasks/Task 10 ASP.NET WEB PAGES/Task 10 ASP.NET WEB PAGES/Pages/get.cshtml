@@ -1,0 +1,121 @@
+﻿@using Task6.InversionOfControl;
+@using Task6.Entities;
+@using CustomUsers;
+@{
+    Layout = "~/Layouts/_MainLayout.cshtml";
+    Page.Title = "Get data";
+
+    //List<string> result = new List<string>();
+    string result = string.Empty;
+    var users = new List<User>();
+    var awards = new List<Award>();
+    var descriptionUsers = "";
+    var descriptionAwards = "";
+    string isSelectedAll = string.Empty;
+    string isSelectedUsers = string.Empty;
+    string isSelectedAwards = string.Empty;
+
+    string selected = "All";
+    if (IsPost)
+    {
+        selected = Request["requested entities"];
+
+        var userLogic = DependencyResolver.UserLogic;
+        var awardLogic = DependencyResolver.AwardLogic;
+
+        if (selected == "all")
+        {
+            descriptionUsers = "Users:";
+            foreach (var item in userLogic.GetAll())
+            {
+                users.Add(item);
+            }
+            descriptionAwards = "Awards:";
+            foreach (var item in awardLogic.GetAll())
+            {
+                awards.Add(item);
+            }
+        }
+        else if (selected == "users")
+        {
+            descriptionUsers = "Users:";
+            isSelectedUsers = "selected";
+            foreach (var item in userLogic.GetAll())
+            {
+                users.Add(item);
+            }
+        }
+        else
+        {
+            isSelectedAwards = "selected";
+            descriptionAwards = "Awards:";
+            foreach (var item in awardLogic.GetAll())
+            {
+                awards.Add(item);
+            }
+        }
+    }
+}
+
+<form action="~/Pages/get.cshtml" method="post">
+    <div class="getOptions" id="getOptions">
+        <select name="requested entities">
+            @if (User.IsInRole("admin"))
+            {
+                <option value="all" @isSelectedAll>All</option>
+            }
+            <option value="users" @isSelectedUsers>Users</option>
+            @if (User.IsInRole("admin"))
+            {
+                <option value="awards" @isSelectedAwards>Awards</option>
+            }
+        </select>
+    </div>
+    <button id="btn-ok">Ok</button>
+</form>
+<div id="result">
+    @descriptionUsers
+    @foreach (var item in users)
+    {
+        <div imageWrapper>
+            <img src="@(item.ImageLink != "" ? item.ImageLink : "/Images/default.jpg")" width="50px" />
+        </div>
+        <p>
+            @if (User.Identity.IsAuthenticated)
+            {
+                @item.ToString();
+            }
+            else
+            {
+                @:Name: @item.Name; date of birth: @item.DateOfBirth.ToShortDateString();
+            }
+
+
+        </p>
+    }
+    @if (User.IsInRole("admin"))
+    {
+        @descriptionAwards
+        foreach (var item in awards)
+        {
+            <div imageWrapper>
+                <img src="@(item.ImageLink != "" ? item.ImageLink : "/Images/default.jpg")" width="50px" />
+                &nbsp;
+            </div>
+
+            <p>@item.ToString()</p>
+        }
+    }
+    Users:
+    @foreach (var customUser in CustomUsers.Users.Values)
+    {
+
+        <p>
+            Name: @customUser.Name; Password: @customUser.Password; Roles:
+            @foreach (var role in customUser.Roles)
+            {
+                @role;
+            }
+        </p>
+    }
+</div>

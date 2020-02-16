@@ -1,14 +1,3 @@
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\BLL.dll
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\BLL.pdb
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\Entities.dll
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\Interfaces.dll
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\Entities.pdb
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\Interfaces.pdb
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\obj\Debug\Task6.BLL.csprojAssemblyReference.cache
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\obj\Debug\Task6.BLL.csproj.CopyComplete
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\obj\Debug\BLL.dll
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\obj\Debug\BLL.pdb
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\Newtonsoft.Json.dll
 K:\Task6 Copies\Task6\BLL\bin\Debug\BLL.dll
 K:\Task6 Copies\Task6\BLL\bin\Debug\BLL.pdb
 K:\Task6 Copies\Task6\BLL\bin\Debug\Entities.dll
@@ -20,3 +9,14 @@ K:\Task6 Copies\Task6\BLL\obj\Debug\Task6.BLL.csprojAssemblyReference.cache
 K:\Task6 Copies\Task6\BLL\obj\Debug\Task6.BLL.csproj.CopyComplete
 K:\Task6 Copies\Task6\BLL\obj\Debug\BLL.dll
 K:\Task6 Copies\Task6\BLL\obj\Debug\BLL.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\BLL.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\BLL.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\Entities.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\Interfaces.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\Newtonsoft.Json.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\Entities.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\bin\Debug\Interfaces.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\obj\Debug\Task6.BLL.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\obj\Debug\Task6.BLL.csproj.CopyComplete
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\obj\Debug\BLL.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\BLL\obj\Debug\BLL.pdb

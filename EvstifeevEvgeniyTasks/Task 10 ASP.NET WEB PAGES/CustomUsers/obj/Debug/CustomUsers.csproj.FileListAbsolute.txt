@@ -1,0 +1,14 @@
+K:\EPAM\WEB\Task 10 ASP.NET WEB PAGES\CustomUsers\bin\Debug\CustomUsers.dll
+K:\EPAM\WEB\Task 10 ASP.NET WEB PAGES\CustomUsers\bin\Debug\CustomUsers.pdb
+K:\EPAM\WEB\Task 10 ASP.NET WEB PAGES\CustomUsers\bin\Debug\Newtonsoft.Json.dll
+K:\EPAM\WEB\Task 10 ASP.NET WEB PAGES\CustomUsers\obj\Debug\CustomUsers.csprojAssemblyReference.cache
+K:\EPAM\WEB\Task 10 ASP.NET WEB PAGES\CustomUsers\obj\Debug\CustomUsers.csproj.CopyComplete
+K:\EPAM\WEB\Task 10 ASP.NET WEB PAGES\CustomUsers\obj\Debug\CustomUsers.dll
+K:\EPAM\WEB\Task 10 ASP.NET WEB PAGES\CustomUsers\obj\Debug\CustomUsers.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task 10 ASP.NET WEB PAGES\CustomUsers\bin\Debug\CustomUsers.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task 10 ASP.NET WEB PAGES\CustomUsers\bin\Debug\CustomUsers.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task 10 ASP.NET WEB PAGES\CustomUsers\bin\Debug\Newtonsoft.Json.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task 10 ASP.NET WEB PAGES\CustomUsers\obj\Debug\CustomUsers.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task 10 ASP.NET WEB PAGES\CustomUsers\obj\Debug\CustomUsers.csproj.CopyComplete
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task 10 ASP.NET WEB PAGES\CustomUsers\obj\Debug\CustomUsers.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task 10 ASP.NET WEB PAGES\CustomUsers\obj\Debug\CustomUsers.pdb

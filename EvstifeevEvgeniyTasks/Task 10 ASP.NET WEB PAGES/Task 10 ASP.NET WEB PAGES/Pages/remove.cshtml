@@ -1,0 +1,119 @@
+﻿@using Task6.InversionOfControl;
+@using Task6.Entities;
+@using Task6.Interfaces
+@{
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~");
+    }
+    Layout = "~/Layouts/_MainLayout.cshtml";
+    Page.Title = "Get data";
+
+    string result = "failed";
+    int id = 0;
+    string ids = "0";
+    if (IsPost)
+    {
+        var selected = Request["type of entity"];
+
+        id = int.Parse(Request["id"]);
+
+        if (selected == "user")
+        {
+            var userLogic = DependencyResolver.UserLogic;
+
+            userLogic.Remove(id);
+
+            result = "Success";
+        }
+        else if (selected == "award")
+        {
+
+            var awardLogic = DependencyResolver.AwardLogic;
+
+            awardLogic.Remove(id);
+
+            result = "Success";
+        }
+        else if (selected == "awards")
+        {
+            ids = Request["Ids"];
+            var requestedIds = Request["Ids"].Split(',');
+            int[] removableIds = new int[requestedIds.Length];
+
+            for (int i = 0; i < removableIds.Length; i++)
+            {
+                if (int.TryParse(requestedIds[i], out removableIds[i]))
+                {
+
+                }
+            }
+
+            var userLogic = DependencyResolver.UserLogic;
+
+            userLogic.RemoveAwards(id, removableIds);
+
+            result = "Success";
+        }
+        else if (selected == "users")
+        {
+            ids = Request["Ids"];
+            var requestedIds = Request["Ids"].Split(',');
+            int[] removableIds = new int[requestedIds.Length];
+
+            for (int i = 0; i < removableIds.Length; i++)
+            {
+                if (int.TryParse(requestedIds[i], out removableIds[i]))
+                {
+
+                }
+            }
+
+            var awardLogic = DependencyResolver.AwardLogic;
+
+            awardLogic.RemoveUsers(id, removableIds);
+
+            result = "Success";
+        }
+    }
+}
+
+<form action="~/Pages/remove.cshtml" method="post">
+    <div class="getOptions" id="getOptions">
+        <label>Choose the entity.</label>
+        <select name="type of entity" id="selectEntity">
+            <option value="user">User</option>
+            <option value="award">Award</option>
+            <option value="users">Users from award</option>
+            <option value="awards">Awards from user</option>
+        </select>
+    </div>
+    <div class="input id wrapper">
+        <label>Removes item with specified id</label>
+        <input type="text" id="id" name="id" value=@id />
+        <label for="id">Id</label>
+        <input style="display:none" type="text" id="ids" name="ids" value=@ids />
+        <label style="display:none" for="ids" id="labelIds">Ids</label>
+    </div>
+    <input type="submit" id="submit">Submit</input>
+</form>
+<div id="result">@result</div>
+<script src="~/Scripts/jquery-3.0.0.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
+<script>
+    $("#selectEntity").change(function () {
+        var typeOfEntity = document.getElementById('selectEntity').value;
+
+        var ids = document.getElementById('ids');
+        var labelIds = document.getElementById('labelIds');
+        if (typeOfEntity == 'user' || typeOfEntity == 'award') {
+            ids.style.display = "none";
+            labelIds.style.display = "none";
+        }
+        else {
+            ids.style.display = "block";
+            labelIds.style.display = "block";
+        }
+    });
+</script>

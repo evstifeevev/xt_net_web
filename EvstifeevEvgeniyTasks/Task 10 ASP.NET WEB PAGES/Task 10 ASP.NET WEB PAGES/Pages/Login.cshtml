@@ -1,0 +1,20 @@
+﻿@using Task_10_ASP.NET_WEB_PAGES.Models
+@using CustomUsers
+@{
+    string name = null, pass = null;
+    name = Request["name"];
+    pass = Request["pass"];
+
+    if (name!=null && pass!=null && IsPost)
+    {
+        if (!CustomUsers.Users.ContainsKey(name))
+        {
+            CustomUsers.AddUser(name, pass, new string[] { "user"});
+        }
+
+        FormsAuthentication.SetAuthCookie(name, createPersistentCookie: true);
+
+        Response.Redirect("~");
+    }
+    Response.Redirect("~");
+}

@@ -38,6 +38,21 @@ namespace Task6.BLL
             _awardDao.RemoveUsers(awardId, userIds);
         }
 
+        public void ChangeTitle(int awardId, string newTitle)
+        {
+            _awardDao.ChangeTitle(awardId, newTitle);
+        }
+
+        public void ChangeImageLink(int awardId, string newImageLink)
+        {
+            _awardDao.ChangeImageLink(awardId, newImageLink);
+        }
+
+        public string GetImageLink(int id)
+        {
+            return _awardDao.GetImageLink(id);
+        }
+
         public IEnumerable<Award> GetAll()
         {
             return _awardDao.GetAll();

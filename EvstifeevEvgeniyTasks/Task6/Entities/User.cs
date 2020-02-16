@@ -22,12 +22,12 @@ namespace Task6.Entities
         /// <summary>
         /// User's name.
         /// </summary>
-        public readonly string Name = string.Empty;
+        //public readonly string Name = string.Empty;
         
         /// <summary>
         /// User's date of birth.
         /// </summary>
-        public readonly DateTime DateOfBirth = default;
+        //public readonly DateTime DateOfBirth = default;
         #endregion
 
         #region User constructor
@@ -37,7 +37,7 @@ namespace Task6.Entities
         /// <param name="name"> Name. </param>
         /// <param name="dateOfBirth"> Date of birth. </param>
         [JsonConstructor]
-        public User(string name, DateTime dateOfBirth)
+        public User(string name, DateTime dateOfBirth, string imageLink="")
         {
             // Check data for correctness.
             if (name == null)
@@ -59,6 +59,7 @@ namespace Task6.Entities
             // Set the values.
             this.Name = name;
             this.DateOfBirth = dateOfBirth;
+            this.ImageLink = imageLink;
             this.Awards = new List<Award>();
         }
         #endregion
@@ -71,6 +72,40 @@ namespace Task6.Entities
         public DateTime Age
         {
             get => new DateTime(DateTime.Now.Ticks - DateOfBirth.Ticks);
+        }
+
+      //  [JsonIgnore]
+        public string ImageLink
+        {
+            get => _imageLink;
+            private set { _imageLink = value; }
+        }
+
+    //    [JsonIgnore]
+        public DateTime DateOfBirth
+        {
+            get => _dateOfBirth;
+            private set { _dateOfBirth = value; }
+        }
+
+     //   [JsonIgnore]
+        public string Name{
+            get=>_name;
+            private set { _name = value; }
+        }
+
+        public void ChangeImageLink(string newImageLink)
+        {
+            ImageLink = newImageLink;
+        }
+
+        public void ChangeName(string newName) {
+            Name = newName;
+        }
+    
+        public void ChangeDateOfBirth(DateTime newDateOfBirth)
+        {
+            DateOfBirth = newDateOfBirth;
         }
 
         /// <summary>
@@ -91,7 +126,7 @@ namespace Task6.Entities
             {
                 stringBuilder.Append(item.Title + "\n");
             }
-            return $"Id:{Id}, name:{Name},\n date of birth:{DateOfBirth.ToShortDateString()},\n age:{Age.Year},\n awards: {stringBuilder}.";
+            return $"Id:{Id}, name:{Name},\n date of birth:{DateOfBirth.ToShortDateString()},\n age:{Age.Year},\n awards: {stringBuilder}. ";
         }
 
         /// <summary>
@@ -104,5 +139,9 @@ namespace Task6.Entities
             return (this.Id == user.Id && this.Name == user.Name && this.DateOfBirth == user.DateOfBirth);
         }
         #endregion
+
+        private string _name = string.Empty;
+        private DateTime _dateOfBirth = default;
+        private string _imageLink = string.Empty;
     }
 }

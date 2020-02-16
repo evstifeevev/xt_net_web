@@ -1,14 +1,3 @@
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\DAO.dll
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\DAO.pdb
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\Entities.dll
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\Interfaces.dll
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\Newtonsoft.Json.dll
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\Entities.pdb
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\Interfaces.pdb
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\obj\Debug\Task6.DAL.csprojAssemblyReference.cache
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\obj\Debug\Task6.DAL.csproj.CopyComplete
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\obj\Debug\DAO.dll
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\obj\Debug\DAO.pdb
 K:\Task6 Copies\Task6\DAO\bin\Debug\DAO.dll
 K:\Task6 Copies\Task6\DAO\bin\Debug\DAO.pdb
 K:\Task6 Copies\Task6\DAO\bin\Debug\Entities.dll
@@ -20,3 +9,14 @@ K:\Task6 Copies\Task6\DAO\obj\Debug\Task6.DAL.csprojAssemblyReference.cache
 K:\Task6 Copies\Task6\DAO\obj\Debug\Task6.DAL.csproj.CopyComplete
 K:\Task6 Copies\Task6\DAO\obj\Debug\DAO.dll
 K:\Task6 Copies\Task6\DAO\obj\Debug\DAO.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\DAO.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\DAO.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\Entities.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\Interfaces.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\Newtonsoft.Json.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\Entities.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\bin\Debug\Interfaces.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\obj\Debug\Task6.DAL.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\obj\Debug\Task6.DAL.csproj.CopyComplete
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\obj\Debug\DAO.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\DAO\obj\Debug\DAO.pdb

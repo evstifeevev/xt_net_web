@@ -1,0 +1,42 @@
+﻿@using Task_10_ASP.NET_WEB_PAGES.Models
+@{
+    string name = null, pass = null;
+
+    name = Request["name"];
+    pass = Request["pass"];
+
+    if (name != null && pass != null && IsPost && pass.GetHashCode() == "admin".GetHashCode())
+    {
+        FormsAuthentication.SetAuthCookie(name, createPersistentCookie: true);
+
+        Response.Redirect("~");
+    }
+}
+<div class="login Header">
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <form action="~/Pages/Login.cshtml" method="post">
+            <div>
+                <label>Name: </label>
+                <input class="form-control" style="width:200px" type="text" name="name" id="name" value=@name />
+            </div>
+            <div>
+                <label>Password: </label>
+                <input class="form-control" style="width:200px" type="password" name="pass" id="pass" value=@pass />
+            </div>
+            <br>
+            <br>
+            <br>
+            <button class="btn btn-primary" style="width:200px">Login</button>
+        </form>
+    }
+    else
+    {
+        <div>
+            Welcome @User.Identity.Name !
+        </div>
+        <form action="~/Pages/SignOut.cshtml" method="post">
+            <button class="btn btn-primary" style="width:200px">Sign out</button>
+        </form>
+    }
+</div>

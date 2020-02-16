@@ -46,6 +46,12 @@ namespace Task6.Interfaces
         /// <param name="userIds"> Users added. </param>
         void RemoveUsers(int awardId, int[] userIds);
 
+        void ChangeTitle(int id, string newTitle);
+
+        void ChangeImageLink(int id, string newImageLink);
+
+        string GetImageLink(int id);
+
         /// <summary>
         /// Returns all awards which are contained in the collection.
         /// </summary>

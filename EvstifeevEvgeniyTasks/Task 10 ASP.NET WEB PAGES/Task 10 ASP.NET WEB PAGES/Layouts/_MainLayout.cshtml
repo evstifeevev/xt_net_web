@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Page.Title</title>
+</head>
+<body>
+    @RenderPage("~/Pages/_loginHeaderPartial.cshtml");
+    @RenderPage("~/Pages/_HeaderPartial.cshtml");
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

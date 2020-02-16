@@ -1,0 +1,243 @@
+﻿@using Task6.InversionOfControl;
+@using Task6.Entities;
+@using Task6.Interfaces
+@{
+    if (!User.Identity.IsAuthenticated)
+    {
+        Response.Redirect("~");
+    }
+    Layout = "~/Layouts/_MainLayout.cshtml";
+    Page.Title = "Get data";
+    string selectedAward = string.Empty;
+    string selectedAwards = string.Empty;
+    string selectedUsers = string.Empty;
+    string selectedUser = "selected";
+    string result = "failed";
+    string userName = string.Empty;
+    string awardTitle = string.Empty;
+    DateTime dateOfBirth = DateTime.MaxValue;
+    var awardsOfUser = new List<Award>();
+    var usersOfAward = new List<User>();
+    string userId = string.Empty;
+    string awardId = string.Empty;
+    string usersIds = string.Empty;
+    string awardsIds = string.Empty;
+    WebImage targetImage = null;
+
+    if (IsPost)
+    {
+        var selected = Request["type of entity"];
+
+        if (selected == "user")
+        {
+            selectedAward = "none";
+            selectedUsers = "none";
+            selectedAwards = "none";
+
+            var userLogic = DependencyResolver.UserLogic;
+
+            if (DateTime.TryParse(Request["dateOfBirth"], out dateOfBirth)
+                && Request["userName"] != null && Request["userName"] != "")
+            {
+                userName = Request["userName"];
+                var photo = WebImage.GetImageFromRequest();
+                if (photo != null)
+                {
+                    targetImage = photo;
+                    var newfilename = Guid.NewGuid().ToString() + "_" +
+                        Path.GetFileName(photo.FileName);
+                    var imagePath = @"~\images\" + newfilename;
+                    photo.Save(imagePath);
+                    userLogic.Add(new User(userName, dateOfBirth, "/Images/" + newfilename));
+                }
+                else
+                {
+                    userLogic.Add(new User(userName, dateOfBirth, string.Empty));
+                }
+            }
+            else 
+            {
+                //Not enough fields message
+            }
+
+
+
+
+            result = "Success";
+        }
+        else if (selected == "award")
+        {
+            selectedUser = "none";
+            selectedUsers = "none";
+            selectedAwards = "none";
+
+            var awardLogic = DependencyResolver.AwardLogic;
+
+            if (Request["awardTitle"] != null && Request["awardTitle"] != "")
+            {
+                awardTitle = Request["awardTitle"];
+            }
+
+
+
+            var photo = WebImage.GetImageFromRequest();
+            if (photo != null)
+            {
+                targetImage = photo;
+                var newfilename = Guid.NewGuid().ToString() + "_" +
+                    Path.GetFileName(photo.FileName);
+                var imagePath = @"~\images\" + newfilename;
+                photo.Save(imagePath);
+                awardLogic.Add(new Award(awardTitle, "/Images/" + newfilename));
+            }
+            else
+            {
+                awardLogic.Add(new Award(awardTitle, string.Empty));
+            }
+
+
+
+            result = "Success";
+        }
+        else if (selected == "awardsToUser")
+        {
+            int targetid = int.Parse(Request["userId"]);
+
+            var ids = Request["awardsIds"].Split(',');
+            int[] addableIds = new int[ids.Length];
+            for (int i = 0; i < ids.Length; i++)
+            {
+                if (int.TryParse(ids[i], out addableIds[i]))
+                {
+                    continue;
+                }
+            }
+
+            selectedUser = "none";
+            selectedAward = "none";
+            selectedUsers = "none";
+
+            awardTitle = Request["awardTitle"];
+
+            var userLogic = DependencyResolver.UserLogic;
+
+            userLogic.AddAwards(targetid, addableIds);
+
+            result = "Success";
+        }
+        else if (selected == "usersToAward")
+        {
+            selectedUser = "none";
+            selectedAward = "none";
+            selectedAwards = "none";
+
+            int targetid = int.Parse(Request["awardId"]);
+
+            var ids = Request["usersIds"].Split(',');
+            int[] addableIds = new int[ids.Length];
+            for (int i = 0; i < ids.Length; i++)
+            {
+                if (int.TryParse(ids[i], out addableIds[i]))
+                {
+                    continue;
+                }
+            }
+
+            awardTitle = Request["awardTitle"];
+
+            var awardLogic = DependencyResolver.AwardLogic;
+
+            awardLogic.AddUsers(targetid, addableIds);
+
+            result = "Success";
+        }
+    }
+}
+
+<form action="~/Pages/add.cshtml" method="post" enctype="multipart/form-data">
+    <div class="getOptions" id="getOptions">
+        <label>Choose the entity.</label>
+        <select name="type of entity" id="selectEntity">
+            <option value="user" @selectedUser>User</option>
+            <option value="award" @selectedAward>Award</option>
+            <option value="usersToAward" @selectedUsers>Users to award</option>
+            <option value="awardsToUser" @selectedAwards>Awards to user</option>
+        </select>
+    </div>
+    <div class="add user" style="display:@(selectedUser==string.Empty ? "none" : "")" id="addUser">
+        <label>Adds user with specified name and date of birth.</label>
+        <input type="text" id="addUserName" name="userName" value=@userName />
+        <label for="addUserName">Name</label>
+        @{
+            var now = DateTime.Now.ToShortDateString();
+        }
+        <input type="date" id="addUserDateOfBirth" min="1880-06-01" max="@now.Substring(6)-@now.Substring(3, 2)-@now.Substring(0, 2)" name="dateOfBirth" value=@dateOfBirth />
+        <label for="addUserDateOfBirth">Date of birth</label>
+    </div>
+    <div class="add award" style="display:@(selectedAward==string.Empty ? "none" : "")" id="addAward">
+        <label>Adds award with specified title</label>
+        <input type="text" id="addAwardTitle" name="awardTitle" value=@awardTitle />
+        <label for="addAwardTitle">Title</label>
+    </div>
+    <div class="add awardsToUser" id="addAwardsToUser" style="display:@(selectedAward==string.Empty ? "none" : "")">
+        <label>Adds awards to user with specified id</label>
+        <input type="text" id="userId" name="userId" value=@userId />
+        <label for="userId">User's id.</label>
+        <input type="text" id="awardsIds" name="awardsIds" value=@awardsIds />
+        <label for="awardsIds">Awards' ids.</label>
+    </div>
+    <div class="add usersToAward" id="addUsersToAward" style="display:@(selectedAward==string.Empty ? "none" : "")">
+        <label>Adds users to award with specified id</label>
+        <input type="text" id="awardId" name="awardId" value=@awardId />
+        <label for="awardId">Award's id.</label>
+        <input type="text" id="usersIds" name="usersIds" value=@usersIds />
+        <label for="usersIds">Users' ids.</label>
+    </div>
+    <input type="file" id="Image" name="Image" value=@targetImage />
+    <label for="userImage">Change image</label>
+    <input type="submit" id="submit">Submit</input>
+</form>
+<div id="result">@result</div>
+
+<script src="~/Scripts/jquery-3.0.0.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
+<script>
+    $("#selectEntity").change(function () {
+        var typeOfEntity = document.getElementById('selectEntity').value;
+
+        var addUser = document.getElementById('addUser');
+        var addAward = document.getElementById('addAward');
+        var addAwardsToUser = document.getElementById('addAwardsToUser');
+        var addUsersToAward = document.getElementById('addUsersToAward');
+
+        if (typeOfEntity == 'user') {
+            console.log('user');
+            addAward.style.display = "none";
+            addUser.style.display = "block";
+            addAwardsToUser.style.display = "none";
+            addUsersToAward.style.display = "none";
+        }
+        else if (typeOfEntity == 'award') {
+            console.log('award');
+            addAward.style.display = "block";
+            addUser.style.display = "none";
+            addAwardsToUser.style.display = "none";
+            addUsersToAward.style.display = "none";
+        }
+        else if (typeOfEntity == 'usersToAward') {
+            console.log('usersToAward');
+            addAward.style.display = "none";
+            addUser.style.display = "none";
+            addAwardsToUser.style.display = "none";
+            addUsersToAward.style.display = "block";
+        }
+        else if (typeOfEntity == 'awardsToUser') {
+            console.log('awardsToUser');
+            addAward.style.display = "none";
+            addUser.style.display = "none";
+            addAwardsToUser.style.display = "block";
+            addUsersToAward.style.display = "none";
+        }
+    });
+</script>

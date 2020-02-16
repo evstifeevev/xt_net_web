@@ -100,6 +100,23 @@ namespace Task6.DAL
             }
         }
 
+        public void ChangeName(int id, string newName) {
+            _users[id].ChangeName(newName);
+            ExportListToFile();
+        }
+
+        public void ChangeDateOfBirth(int id, DateTime newDateOfBirth)
+        {
+            _users[id].ChangeDateOfBirth(newDateOfBirth);
+            ExportListToFile();
+        }
+
+        public void ChangeImageLink(int id, string newImageLink)
+        {
+            _users[id].ChangeImageLink(newImageLink);
+            ExportListToFile();
+        }
+
         /// <summary>
         /// Removes the user by the id. 
         /// </summary>
@@ -163,6 +180,14 @@ namespace Task6.DAL
                     _users[userId].Awards.Remove(AwardDao._awards[awardIds[i]]);
                 }
             }
+        }
+
+        public string GetImageLink(int id) {
+            if (_users.TryGetValue(id, out User user))
+            {
+                return user.ImageLink;
+            }
+            return "";
         }
         #endregion
 

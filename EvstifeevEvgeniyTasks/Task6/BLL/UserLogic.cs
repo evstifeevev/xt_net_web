@@ -38,6 +38,25 @@ namespace Task6.BLL
             _userDao.RemoveAwards(userId, awardsIds);
         }
 
+        public void ChangeName(int id, string newName)
+        {
+            _userDao.ChangeName(id, newName);
+        }
+
+        public void ChangeDateOfBirth(int id, DateTime newDateOfBirth)
+        {
+            _userDao.ChangeDateOfBirth(id, newDateOfBirth);
+        }
+
+        public void ChangeImageLink(int id, string newImageLink)
+        {
+            _userDao.ChangeImageLink(id, newImageLink);
+        }
+
+        public string GetImageLink(int id) {
+            return _userDao.GetImageLink(id);
+        }
+
         public User GetById(int id)
         {
 

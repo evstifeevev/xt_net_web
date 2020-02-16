@@ -133,6 +133,28 @@ namespace Task6.DAL
             }
 
         }
+
+        public void ChangeTitle(int id, string newTitle)
+        {
+            _awards[id].ChangeTitle(newTitle);
+            ExportListToFile();
+        }
+
+        public void ChangeImageLink(int id, string newImageLink)
+        {
+            _awards[id].ChangeImageLink(newImageLink);
+            ExportListToFile();
+        }
+
+        public string GetImageLink(int id)
+        {
+            if (_awards.TryGetValue(id, out Award award))
+            {
+                return award.ImageLink;
+            }
+            return "";
+        }
+
         #endregion
 
         internal static void RemoveInternal(int userId)
