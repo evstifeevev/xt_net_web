@@ -2,12 +2,12 @@
 @using Task6.Entities;
 @using Task6.Interfaces
 @{
-    if (!User.Identity.IsAuthenticated)
+    if (!User.IsInRole("admin"))
     {
         Response.Redirect("~");
     }
     Layout = "~/Layouts/_MainLayout.cshtml";
-    Page.Title = "Get data";
+    Page.Title = "Add data";
     string selectedAward = string.Empty;
     string selectedAwards = string.Empty;
     string selectedUsers = string.Empty;
@@ -166,7 +166,7 @@
     </div>
     <div class="add user" style="display:@(selectedUser==string.Empty ? "none" : "")" id="addUser">
         <label>Adds user with specified name and date of birth.</label>
-        <input type="text" id="addUserName" name="userName" value=@userName />
+        <input type="text" id="addUserName" name="userName" value="@userName" />
         <label for="addUserName">Name</label>
         @{
             var now = DateTime.Now.ToShortDateString();
@@ -176,21 +176,21 @@
     </div>
     <div class="add award" style="display:@(selectedAward==string.Empty ? "none" : "")" id="addAward">
         <label>Adds award with specified title</label>
-        <input type="text" id="addAwardTitle" name="awardTitle" value=@awardTitle />
+        <input type="text" id="addAwardTitle" name="awardTitle" value"=@awardTitle" />
         <label for="addAwardTitle">Title</label>
     </div>
     <div class="add awardsToUser" id="addAwardsToUser" style="display:@(selectedAward==string.Empty ? "none" : "")">
         <label>Adds awards to user with specified id</label>
-        <input type="text" id="userId" name="userId" value=@userId />
+        <input type="text" id="userId" name="userId" value="@userId" />
         <label for="userId">User's id.</label>
-        <input type="text" id="awardsIds" name="awardsIds" value=@awardsIds />
+        <input type="text" id="awardsIds" name="awardsIds" value="@awardsIds" />
         <label for="awardsIds">Awards' ids.</label>
     </div>
     <div class="add usersToAward" id="addUsersToAward" style="display:@(selectedAward==string.Empty ? "none" : "")">
         <label>Adds users to award with specified id</label>
-        <input type="text" id="awardId" name="awardId" value=@awardId />
+        <input type="text" id="awardId" name="awardId" value="@awardId" />
         <label for="awardId">Award's id.</label>
-        <input type="text" id="usersIds" name="usersIds" value=@usersIds />
+        <input type="text" id="usersIds" name="usersIds" value="@usersIds" />
         <label for="usersIds">Users' ids.</label>
     </div>
     <input type="file" id="Image" name="Image" value=@targetImage />

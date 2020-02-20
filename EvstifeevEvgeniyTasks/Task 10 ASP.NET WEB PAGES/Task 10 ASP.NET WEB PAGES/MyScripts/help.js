@@ -1,17 +1,27 @@
 ﻿(function () {
     var helpButton = document.getElementById("helpButton");
     var helpMessageBox = document.getElementById("helpMessageBox");
+    var username = document.getElementById("username").innerText.trim();
+    var role = document.getElementById("roleWrapper").innerText.trim();
     var isShown = false;
     var ShowHelpMessage = function () {
         if (!isShown) {
-            helpMessageBox.innerText = "The list of available commands:\n add[user | award][properties of(user | award)]- " +
-                "adds user or award with specified properties.\n addawards [user's id] [list of awards ids] - adds awards to" +
-                "the user.\n addusers [award's id] [list of users ids] - adds users to the award.\n" +
-                "getall [user|award] - displays all users or awards. Entering just getall displays all entities.\n" +
-                "help - displays this list of the available commands.\n" +
-                "remove [user|award] [id of (user|award)] - removes user or award with specified id.\n" +
-                "removeusers [award's id] [list of users ids] - removes users from the award.\n" +
-                "removeawards [user's id] [list of awards ids] - removes awards from the user.\n";
+            var commandsDescription = "";
+            if (role == 'guest') {
+                commandsDescription = "Since you are not authenticated user you can only use 'get' option to get the list of users without their awards."
+            }
+            else if (role == "user") {
+                commandsDescription = "Since you are an authentificated user you can only use 'get' option to get the list of users with their awards."
+            } 
+            else if (role == "admin") {
+                commandsDescription = "Since you are an admin you can use all available options. Use 'Get' to get the list of users, awards and website users.\r\n " +
+                    "Use 'Edit' to change user's or award's properties.\r\n " +
+                    "Use 'Add' to add new user or new award to the file, add users to award or add awards to user.\r\n " +
+                    "Use 'Remove' to remove award or user by specified id, remove users from award or awards from user.\r\n " +
+                    "Use 'Change admin role' to change administrative role of saved website user.\r\n ";
+            }
+
+            helpMessageBox.innerText = helpMessageBox.innerText.concat('Dear ', username,', thank you for using the help button! \r\n', commandsDescription) ;
             isShown = true;
             helpButton.innerText = "Hide";
         }

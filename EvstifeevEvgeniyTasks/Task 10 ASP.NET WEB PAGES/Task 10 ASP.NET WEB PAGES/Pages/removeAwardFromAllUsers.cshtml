@@ -1,0 +1,52 @@
+﻿@using Task6.InversionOfControl;
+@using Task6.Entities;
+@using Task6.Interfaces
+@{
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~");
+    }
+    string id = string.Empty;
+    try
+    {
+        if (int.TryParse(Request.QueryString["id"], out int awardId))
+        {
+            id = awardId.ToString();
+
+            var isConfirmed = Request.QueryString["isConfirmed"];
+            if (isConfirmed=="true"){
+
+                var awardLogic = DependencyResolver.AwardLogic;
+                awardLogic.Remove(awardId);
+
+                Response.Redirect("~/Pages/remove.cshtml?isSuccessful=true");
+            }
+        }
+    }
+    catch (Exception e)
+    {
+        ;
+    }
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>confirmation box</title>
+</head>
+<body>
+    <script>
+    (function () {
+        var answer = confirm("Do you also want to remove the award from all users?");
+        if (answer) {
+            location.href = '/Pages/removeAwardFromAllUsers?isConfirmed=true&id=@id';
+        } else
+        {
+            location.href = '/Pages/remove';
+        }
+         
+    }())
+    </script>
+</body>
+</html>

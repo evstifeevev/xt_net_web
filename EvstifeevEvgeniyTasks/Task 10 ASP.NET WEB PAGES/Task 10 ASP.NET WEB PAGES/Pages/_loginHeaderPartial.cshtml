@@ -4,39 +4,73 @@
 
     name = Request["name"];
     pass = Request["pass"];
-
+    var isEmptyName = false;
+    var isEmptyPassword = false;
+    var isWrongPassword = false;
+    string nameClass = string.Empty;
+    string passClass = string.Empty;
     if (name != null && pass != null && IsPost && pass.GetHashCode() == "admin".GetHashCode())
     {
         FormsAuthentication.SetAuthCookie(name, createPersistentCookie: true);
 
         Response.Redirect("~");
+    
+        if (name == null)
+        {
+            isEmptyName= true;
+            nameClass= "alert alert-warning";
+        }
+        if (pass == null)
+        {
+            isEmptyPassword = true;
+            passClass = "alert alert-warning";
+        }
+        if (pass == null)
+        {
+            isWrongPassword = true;
+            passClass = "alert alert-danger";
+        }
     }
 }
-<div class="login Header">
-    @if (!User.Identity.IsAuthenticated)
-    {
-        <form action="~/Pages/Login.cshtml" method="post">
+    <div class="login Header">
+        @if (!User.Identity.IsAuthenticated)
+        {
+            if (isEmptyName || isEmptyPassword || isWrongPassword)
+            {
+                @:<div class="alert alert-info">
+                    if (isEmptyName)
+                    {
+                        @:Enter the name!
+                    }
+                    if (isEmptyPassword)
+                    {
+                        @:Enter the password!
+                    }
+                    else if (isWrongPassword)
+                    {
+                        @:Incorrect password!
+                    }
+                @:</div>
+            }
+            <form action="~/Pages/Login.cshtml" method="post">
+                <div class="@nameClass">
+                    <label>Login: </label>
+                    <input class="form-control" style="width:200px" type="text" name="name" id="name" value=@name />
+                </div>
+                <div class="@passClass" style="display:inline">
+                    <label>Password: </label>
+                    <input class="form-control" style="width:200px" type="password" name="pass" id="pass" value=@pass />
+                </div>
+                <button class="btn btn-primary" style="width:200px">Login</button>
+            </form>
+        }
+        else
+        {
             <div>
-                <label>Name: </label>
-                <input class="form-control" style="width:200px" type="text" name="name" id="name" value=@name />
+                Welcome, @User.Identity.Name!
             </div>
-            <div>
-                <label>Password: </label>
-                <input class="form-control" style="width:200px" type="password" name="pass" id="pass" value=@pass />
-            </div>
-            <br>
-            <br>
-            <br>
-            <button class="btn btn-primary" style="width:200px">Login</button>
-        </form>
-    }
-    else
-    {
-        <div>
-            Welcome @User.Identity.Name !
-        </div>
-        <form action="~/Pages/SignOut.cshtml" method="post">
-            <button class="btn btn-primary" style="width:200px">Sign out</button>
-        </form>
-    }
-</div>
+            <form action="~/Pages/SignOut.cshtml" method="post">
+                <button class="btn btn-primary" style="width:200px">Sign out</button>
+            </form>
+        }
+    </div>

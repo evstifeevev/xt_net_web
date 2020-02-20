@@ -1,0 +1,100 @@
+﻿@using Task6.InversionOfControl;
+@using Task6.Entities;
+@using CustomUsers;
+@{
+    if (!User.IsInRole("admin"))
+    {
+        Response.Redirect("~");
+    }
+    Layout = "~/Layouts/_MainLayout.cshtml";
+    Page.Title = "Change administrative role";
+
+    //List<string> result = new List<string>();
+    string username = string.Empty;
+    bool isNotFound = false;
+    bool isWrongName = false;
+    bool isOwnName = false;
+    bool isChangedSuccessfully = false;
+
+    string selected = "All";
+    if (IsPost)
+    {
+        username = Request["username"];
+
+        if (username == null || username.Length < 1)
+        {
+            isWrongName = true;
+        }
+        else
+        {
+            if (!CustomUsers.Users.ContainsKey(username))
+            {
+                isNotFound = true;
+            }
+            else
+            {
+                if (User.Identity.Name == username)
+                {
+                    isOwnName = true;
+                }
+                else
+                {
+                    CustomUsers.ChangeAdministrativeRole(username, "admin");
+                    isChangedSuccessfully = true;
+                }
+            }
+        }
+    }
+}
+@if (User.IsInRole("admin"))
+{
+    if (isWrongName || isNotFound || isOwnName)
+    {
+        @:<div class="alert alert-danger">
+            if (isWrongName)
+            {
+                @:Incorrect name!
+            }
+            else if (isNotFound)
+            {
+                @:The user with specified name is nof found!
+            }
+            else
+            {
+                @:You cannot change your own administrative role!
+            }
+        @:</div>
+    }
+    else if (isChangedSuccessfully)
+    {
+        <div class="alert alert-success">
+            The role was changed successfully!
+        </div>
+    }
+
+    <form action="~/Pages/changeRole.cshtml" method="post">
+        <div class="getOptions" id="getOptions">
+            <input type="text" id="username" name="username" value="@username" />
+            <label for="username">username</label>
+        </div>
+        <button id="btn-ok">Ok</button>
+    </form>
+    <div id="result">
+        @if (User.IsInRole("admin"))
+        {
+            @: Users:
+            foreach (var customUser in CustomUsers.Users.Values)
+            {
+                <p>
+                    Name:  @customUser.Name; Roles:
+                    @foreach (var role in customUser.Roles)
+                    {
+                        @: @role,
+                    }
+                </p>
+            }
+        }
+    </div>
+}
+<script src="~/Scripts/jquery-3.0.0.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>

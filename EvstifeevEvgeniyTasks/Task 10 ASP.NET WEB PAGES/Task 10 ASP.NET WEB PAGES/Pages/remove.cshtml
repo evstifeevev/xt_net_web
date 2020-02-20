@@ -2,79 +2,92 @@
 @using Task6.Entities;
 @using Task6.Interfaces
 @{
-    if (!User.Identity.IsAuthenticated)
+    if (!User.IsInRole("admin"))
     {
         Response.Redirect("~");
     }
     Layout = "~/Layouts/_MainLayout.cshtml";
-    Page.Title = "Get data";
+    Page.Title = "Remove data";
 
     string result = "failed";
+    if (Request.QueryString["isSuccessful"] != null)
+    {
+        result = "success";
+    }
     int id = 0;
     string ids = "0";
     if (IsPost)
     {
         var selected = Request["type of entity"];
 
-        id = int.Parse(Request["id"]);
-
-        if (selected == "user")
+        if (int.TryParse(Request["id"], out id))
         {
-            var userLogic = DependencyResolver.UserLogic;
-
-            userLogic.Remove(id);
-
-            result = "Success";
-        }
-        else if (selected == "award")
-        {
-
-            var awardLogic = DependencyResolver.AwardLogic;
-
-            awardLogic.Remove(id);
-
-            result = "Success";
-        }
-        else if (selected == "awards")
-        {
-            ids = Request["Ids"];
-            var requestedIds = Request["Ids"].Split(',');
-            int[] removableIds = new int[requestedIds.Length];
-
-            for (int i = 0; i < removableIds.Length; i++)
+            if (selected == "user")
             {
-                if (int.TryParse(requestedIds[i], out removableIds[i]))
-                {
+                var userLogic = DependencyResolver.UserLogic;
 
+                userLogic.Remove(id);
+
+                result = "Success";
+            }
+            else if (selected == "award")
+            {
+                var userLogic = DependencyResolver.UserLogic;
+                var awardLogic = DependencyResolver.AwardLogic;
+
+                if (!userLogic.GetAll().Any(user => user.Awards.Contains(awardLogic.GetById(id))))
+                {
+                    awardLogic.Remove(id);
+                    result = "Success";
+                }
+                else
+                {
+                    Response.Redirect("~/Pages/removeAwardFromAllUsers.cshtml?id=" + id);
                 }
             }
-
-            var userLogic = DependencyResolver.UserLogic;
-
-            userLogic.RemoveAwards(id, removableIds);
-
-            result = "Success";
-        }
-        else if (selected == "users")
-        {
-            ids = Request["Ids"];
-            var requestedIds = Request["Ids"].Split(',');
-            int[] removableIds = new int[requestedIds.Length];
-
-            for (int i = 0; i < removableIds.Length; i++)
+            else if (selected == "awards")
             {
-                if (int.TryParse(requestedIds[i], out removableIds[i]))
+                ids = Request["Ids"];
+                var requestedIds = Request["Ids"].Split(',');
+                int[] removableIds = new int[requestedIds.Length];
+
+                for (int i = 0; i < removableIds.Length; i++)
                 {
+                    if (int.TryParse(requestedIds[i], out removableIds[i]))
+                    {
 
+                    }
                 }
+
+                var userLogic = DependencyResolver.UserLogic;
+
+                userLogic.RemoveAwards(id, removableIds);
+
+                result = "Success";
             }
+            else if (selected == "users")
+            {
+                ids = Request["Ids"];
+                var requestedIds = Request["Ids"].Split(',');
+                int[] removableIds = new int[requestedIds.Length];
 
-            var awardLogic = DependencyResolver.AwardLogic;
+                for (int i = 0; i < removableIds.Length; i++)
+                {
+                    if (int.TryParse(requestedIds[i], out removableIds[i]))
+                    {
 
-            awardLogic.RemoveUsers(id, removableIds);
+                    }
+                }
 
-            result = "Success";
+                var awardLogic = DependencyResolver.AwardLogic;
+
+                awardLogic.RemoveUsers(id, removableIds);
+
+                result = "Success";
+            }
         }
+
+
     }
 }
 

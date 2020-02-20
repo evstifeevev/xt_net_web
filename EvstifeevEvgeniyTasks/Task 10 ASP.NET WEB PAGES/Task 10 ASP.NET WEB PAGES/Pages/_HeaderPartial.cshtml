@@ -1,11 +1,12 @@
 ﻿<div class="Header">
-    <ul liststyle="none">
+    <ul style="list-style:none; padding-left: 0; padding-top: 20px;">
         <li><a href="~/index.cshtml">Main page</a></li>
         <li><a href="~/Pages/get.cshtml">Get</a></li>
         @if (User.Identity.IsAuthenticated && User.IsInRole("admin")) { 
         <li><a href="~/Pages/edit.cshtml">Edit</a></li>
         <li><a href="~/Pages/add.cshtml">Add</a></li>
         <li><a href="~/Pages/remove.cshtml">Remove</a></li>
+        <li><a href="~/Pages/changeRole.cshtml">Change admin role</a></li>
         }
     </ul>
 </div>

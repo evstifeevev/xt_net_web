@@ -2,12 +2,12 @@
 @using Task6.Entities;
 @using Task6.Interfaces
 @{
-    if (!User.Identity.IsAuthenticated)
+    if (!User.IsInRole("admin"))
     {
         Response.Redirect("~");
     }
     Layout = "~/Layouts/_MainLayout.cshtml";
-    Page.Title = "Get data";
+    Page.Title = "Edit data";
     string selectedAward = string.Empty;
     string selectedAwards = string.Empty;
     string selectedUsers = string.Empty;

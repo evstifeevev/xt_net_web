@@ -80,6 +80,15 @@ namespace CustomUsers
             return new string[] { "user" };
         }
 
+        public static void ChangeAdministrativeRole(string username, string administrativeRoleName)
+        {
+            if (_customUsers.ContainsKey(username))
+            {
+                _customUsers[username].ChangeAdministrativeRole(administrativeRoleName);
+                ExportToFile();
+            }
+        }
+
         private static void ExportToFile()
         {
             using (var sw = new StreamWriter(_fileCustomUsersPath))

@@ -5,106 +5,41 @@
 @{
     Layout = "~/Layouts/_MainLayout.cshtml";
     Page.Title = "WEB UI";
-
-    string userName = null;
-    string awardTitle = null;
-    DateTime dateOfBirth = DateTime.MaxValue;
-    int id = 0; 
-
-    var userLogic = DependencyResolver.UserLogic;
-    var awardLogic = DependencyResolver.AwardLogic;
-
-    if (IsPost)
-    {
-        if (Request["input-addUserName"] == null || !DateTime.TryParse(Request["input-dateOfBirth"], out dateOfBirth))
-        {
-
-        }
-        else
-        {
-
-        }
-    }
 }
 
 <h1>Task 10. ASP.NET WEB PAGES</h1>
 <div class="Description">
     This is a demontration of 3-tier architecture. It allows to operate with users and awards
-    which are contained in .json files in the program directory ({Environment.CurrentDirectory}). Users have
+    which are contained in .json files in the program's environment directory (@Environment.CurrentDirectory\). Users have
     a name and date of birth, and awards have a title. To see all available commands press "help" button.
 </div>
 <button id="helpButton">help</button>
+<div style="display:none" id="roleWrapper">
+    @if (!User.Identity.IsAuthenticated)
+    {
+        @:guest
+    }
+    else if (User.IsInRole("admin"))
+    {
+        @:admin
+    }
+    else if (User.IsInRole("user"))
+    {
+        @:user
+    }
+</div>
+<div style="display:none" id="username">
+    @if (!User.Identity.IsAuthenticated)
+    {
+        @: guest
+    }
+    else {
+        @: @User.Identity.Name
+    }
+</div>
 <div id="helpMessageBox"></div>
-@*<hr />
-<div id="options">
-    <label>Choose one of the following options:</label>
-    <select id="selectRequest">
-        <option name="get">Get All</option>
-        <option name="add">Add</option>
-        <option name="remove">Remove</option>
-    </select>
-</div>
-<form action="~/index.cshtml" method="post">
-    <div class="add user">
-        <label>Adds user with specified name and date of birth.</label>
-        <input type="text" id="addUserName" />
-        <input type="text" id="addUserName" name="input-addUserName" value=@userName />
-        <label for="addUserName">Name</label>
-        @{
-            var now = DateTime.Now.ToShortDateString();
-        }
-        <input type="date" id="addUserDateOfBirth" min="1880-06-01" max="@now.Substring(6)-@now.Substring(3, 2)-@now.Substring(0, 2)" name="input-dateOfBirth" value=@dateOfBirth />
-        <label for="addUserDateOfBirth">Date of birth</label>
-    </div>
-    <div class="add award">
-        <label>Adds award with specified title</label>
-        <input type="text" id="addAwardTitle" name="input-addAwardTitle" value=@awardTitle />
-        <label for="addAwardTitle">Title</label>
-    </div>
-    <div class="remove user">
-        <label>Removes user by id.</label>
-        <input type="text" id="removeUserId" name="input-removeUserId" value=@id />
-        <label for="removeUserId">Id</label>
-    </div>
-    <div class="remove award">
-        <label>Removes award by id.</label>
-        <input type="text" id="removeAwardId" />
-        <input type="text" id="removeUserId" name="input-removeUserId" value=@id />
-        <label for="removeAwardId">Id</label>
-    </div>
-    <p></p>
-    <button id="okButton">Ok</button>
-</form>
-<div class="remove users">
-    <label>Removes every user</label>
-</div>
-<div class="remove awards">
-    <label>Removes every award</label>
-</div>*@
 
-@*<div class="submitWrapper">
-   
-    <button id="btn_submit" class="btn btn-dark" style="width:200px">Sign Out</button>
-</div>
-    *@
 <script src="~/Scripts/jquery-3.0.0.js"></script>
 <script src="~/Scripts/bootstrap.js"></script>
 
 <script src="~/MyScripts/help.js"></script>
-
-@*<script>
-    $('#btn_submit').click(function () {
-    var requestedMethod = document.getElementById('selectRequest').value;
-    if (requestedMethod == 'Get All') {
-        location.href = '/Pages/get';
-    }
-    else if (requestedMethod == 'Add') {
-        location.href = '/Pages/add';
-    } else if (requestedMethod == 'Remove') {
-        location.href = '/Pages/remove';
-    }
-});
-</script>*@
-@*<div class="okWrapper">
-        <button id="okButton">Ok</button>
-    </div>*@

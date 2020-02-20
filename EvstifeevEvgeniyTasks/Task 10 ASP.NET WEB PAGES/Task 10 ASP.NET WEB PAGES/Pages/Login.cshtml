@@ -5,16 +5,17 @@
     name = Request["name"];
     pass = Request["pass"];
 
-    if (name!=null && pass!=null && IsPost)
+    if (IsPost && name!=null && name!="" && pass!=null && pass!="")
     {
         if (!CustomUsers.Users.ContainsKey(name))
         {
-            CustomUsers.AddUser(name, pass, new string[] { "user"});
+            CustomUsers.AddUser(name, pass.GetHashCode().ToString(), new string[] { "user" });
+             FormsAuthentication.SetAuthCookie(name, createPersistentCookie: true);
+        } 
+        if(CustomUsers.Users[name].Password==pass.GetHashCode().ToString())
+        {
+             FormsAuthentication.SetAuthCookie(name, createPersistentCookie: true);
         }
-
-        FormsAuthentication.SetAuthCookie(name, createPersistentCookie: true);
-
-        Response.Redirect("~");
     }
     Response.Redirect("~");
 }

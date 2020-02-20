@@ -2,12 +2,14 @@
 
 <html>
 <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="~/CSS/alert.css">
     <meta name="viewport" content="width=device-width" />
     <title>@Page.Title</title>
 </head>
-<body>
-    @RenderPage("~/Pages/_loginHeaderPartial.cshtml");
-    @RenderPage("~/Pages/_HeaderPartial.cshtml");
+<body style=" padding-left:20px">
+    @RenderPage("~/Pages/_loginHeaderPartial.cshtml")
+    @RenderPage("~/Pages/_HeaderPartial.cshtml")
     <div>
         @RenderBody()
     </div>

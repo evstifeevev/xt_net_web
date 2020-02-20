@@ -18,3 +18,19 @@ K:\Task6 Copies\Task6\Task6\obj\Debug\Task6.exe
 K:\Task6 Copies\Task6\Task6\obj\Debug\Task6.pdb
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\Newtonsoft.Json.dll
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\obj\Debug\Task6.ConsolePL.csprojAssemblyReference.cache
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\Task6.exe.config
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\Task6.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\Task6.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\Entities.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\Interfaces.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\InversionOfControl.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\DAO.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\BLL.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\Entities.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\Interfaces.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\InversionOfControl.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\DAO.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\bin\Debug\BLL.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\obj\Debug\Task6.ConsolePL.csproj.CopyComplete
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\obj\Debug\Task6.exe
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\Task6\obj\Debug\Task6.pdb

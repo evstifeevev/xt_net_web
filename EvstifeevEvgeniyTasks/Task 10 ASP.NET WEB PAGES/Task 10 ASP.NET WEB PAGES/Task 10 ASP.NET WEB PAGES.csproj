@@ -96,8 +96,8 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="CSS\alert.css" />
     <Content Include="Images\default.jpg" />
-    <Content Include="MyScripts\requestedMethod.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -136,6 +136,8 @@
     <Content Include="Json files\CustomUsers.json" />
     <Content Include="Json files\Users.json" />
     <Content Include="Json files\UsersAwards.json" />
+    <Content Include="Pages\changeRole.cshtml" />
+    <Content Include="Pages\removeAwardFromAllUsers.cshtml" />
     <None Include="Scripts\jquery-3.0.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />

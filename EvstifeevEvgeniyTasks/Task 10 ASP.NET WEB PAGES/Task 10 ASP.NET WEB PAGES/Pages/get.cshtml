@@ -9,11 +9,13 @@
     string result = string.Empty;
     var users = new List<User>();
     var awards = new List<Award>();
-    var descriptionUsers = "";
-    var descriptionAwards = "";
-    string isSelectedAll = string.Empty;
-    string isSelectedUsers = string.Empty;
-    string isSelectedAwards = string.Empty;
+    var descriptionUsers = string.Empty;
+    var descriptionAwards = string.Empty;
+    var descriptionCustomUsers = string.Empty;
+    string SelectedAll = string.Empty;
+    string SelectedUsers = string.Empty;
+    string SelectedAwards = string.Empty;
+    string SelectedCustomUsers = string.Empty;
 
     string selected = "All";
     if (IsPost)
@@ -25,6 +27,7 @@
 
         if (selected == "all")
         {
+            SelectedAll = "selected";
             descriptionUsers = "Users:";
             foreach (var item in userLogic.GetAll())
             {
@@ -35,24 +38,30 @@
             {
                 awards.Add(item);
             }
+            descriptionCustomUsers = "Website users:";
         }
         else if (selected == "users")
         {
             descriptionUsers = "Users:";
-            isSelectedUsers = "selected";
+            SelectedUsers = "selected";
             foreach (var item in userLogic.GetAll())
             {
                 users.Add(item);
             }
         }
-        else
+        else if (selected == "awards")
         {
-            isSelectedAwards = "selected";
+            SelectedAwards = "selected";
             descriptionAwards = "Awards:";
             foreach (var item in awardLogic.GetAll())
             {
                 awards.Add(item);
             }
+        }
+        else if (selected == "customUsers")
+        {
+            SelectedCustomUsers = "selected";
+            descriptionCustomUsers = "Awards:";
         }
     }
 }
@@ -62,13 +71,15 @@
         <select name="requested entities">
             @if (User.IsInRole("admin"))
             {
-                <option value="all" @isSelectedAll>All</option>
+                <option value="all" @SelectedAll>All</option>
             }
-            <option value="users" @isSelectedUsers>Users</option>
+            <option value="users" @SelectedUsers>Users</option>
             @if (User.IsInRole("admin"))
             {
-                <option value="awards" @isSelectedAwards>Awards</option>
+                <option value="awards" @SelectedAwards>Awards</option>
+                <option value="customUsers" @SelectedCustomUsers>Website users</option>
             }
+
         </select>
     </div>
     <button id="btn-ok">Ok</button>
@@ -81,17 +92,32 @@
             <img src="@(item.ImageLink != "" ? item.ImageLink : "/Images/default.jpg")" width="50px" />
         </div>
         <p>
+            @if (User.IsInRole("admin"))
+            {
+                @: Id: @item.Id; 
+            }
+            Name: @item.Name; date of birth: @item.DateOfBirth.ToShortDateString();
             @if (User.Identity.IsAuthenticated)
             {
-                @item.ToString();
-            }
-            else
-            {
-                @:Name: @item.Name; date of birth: @item.DateOfBirth.ToShortDateString();
-            }
+                @: Awards:
+                int awardIndex = 0;
+                foreach (var award in item.Awards)
+                {
+                    awardIndex++;
+                    if (awardIndex < item.Awards.Count())
+                    {
+                        @:@award.Title,
+                    }
+                    else
+                    {
+                        @:@award.Title.
+                    }
+                }
 
+            }
 
         </p>
+        <br />
     }
     @if (User.IsInRole("admin"))
     {
@@ -105,17 +131,21 @@
 
             <p>@item.ToString()</p>
         }
-    }
-    Users:
-    @foreach (var customUser in CustomUsers.Users.Values)
-    {
-
-        <p>
-            Name: @customUser.Name; Password: @customUser.Password; Roles:
-            @foreach (var role in customUser.Roles)
+        <br />
+        if (SelectedAll == "selected" || SelectedCustomUsers == "selected")
+        {
+            @: Users:
+            foreach (var customUser in CustomUsers.Users.Values)
             {
-                @role;
+                <p>
+                    Name:  @customUser.Name; Password: @customUser.Password; Roles:
+                    @foreach (var role in customUser.Roles)
+                    {
+                        @: @role;
+                    }
+                </p>
             }
-        </p>
+            <br />
+        }
     }
 </div>
