@@ -30,10 +30,6 @@
 
         if (selected == "user")
         {
-            selectedAward = "none";
-            selectedUsers = "none";
-            selectedAwards = "none";
-
             var userLogic = DependencyResolver.UserLogic;
 
             if (DateTime.TryParse(Request["dateOfBirth"], out dateOfBirth)
@@ -54,8 +50,9 @@
                 {
                     userLogic.Add(new User(userName, dateOfBirth, string.Empty));
                 }
+                result = "Success";
             }
-            else 
+            else
             {
                 //Not enough fields message
             }
@@ -63,93 +60,91 @@
 
 
 
-            result = "Success";
+
         }
         else if (selected == "award")
         {
-            selectedUser = "none";
-            selectedUsers = "none";
-            selectedAwards = "none";
+            selectedUser = string.Empty;
+            selectedAward = "selected";
 
             var awardLogic = DependencyResolver.AwardLogic;
 
             if (Request["awardTitle"] != null && Request["awardTitle"] != "")
             {
                 awardTitle = Request["awardTitle"];
+                var photo = WebImage.GetImageFromRequest();
+                if (photo != null)
+                {
+                    targetImage = photo;
+                    var newfilename = Guid.NewGuid().ToString() + "_" +
+                        Path.GetFileName(photo.FileName);
+                    var imagePath = @"~\images\" + newfilename;
+                    photo.Save(imagePath);
+                    awardLogic.Add(new Award(awardTitle, "/Images/" + newfilename));
+                }
+                else
+                {
+                    awardLogic.Add(new Award(awardTitle, string.Empty));
+                }
+
+                result = "Success";
             }
 
 
-
-            var photo = WebImage.GetImageFromRequest();
-            if (photo != null)
-            {
-                targetImage = photo;
-                var newfilename = Guid.NewGuid().ToString() + "_" +
-                    Path.GetFileName(photo.FileName);
-                var imagePath = @"~\images\" + newfilename;
-                photo.Save(imagePath);
-                awardLogic.Add(new Award(awardTitle, "/Images/" + newfilename));
-            }
-            else
-            {
-                awardLogic.Add(new Award(awardTitle, string.Empty));
-            }
-
-
-
-            result = "Success";
         }
         else if (selected == "awardsToUser")
         {
-            int targetid = int.Parse(Request["userId"]);
+            selectedUser = string.Empty;
+            selectedAwards = "selected";
 
-            var ids = Request["awardsIds"].Split(',');
-            int[] addableIds = new int[ids.Length];
-            for (int i = 0; i < ids.Length; i++)
+            if (int.TryParse(Request["awardId"], out int targetid))
             {
-                if (int.TryParse(ids[i], out addableIds[i]))
+                var ids = Request["awardsIds"].Split(',');
+                int[] addableIds = new int[ids.Length];
+                for (int i = 0; i < ids.Length; i++)
                 {
-                    continue;
+                    if (int.TryParse(ids[i], out addableIds[i]))
+                    {
+                        continue;
+                    }
+                }
+
+                if (addableIds.Length > 0)
+                {
+                    var userLogic = DependencyResolver.UserLogic;
+
+                    userLogic.AddAwards(targetid, addableIds);
+
+                    result = "Success";
                 }
             }
 
-            selectedUser = "none";
-            selectedAward = "none";
-            selectedUsers = "none";
-
-            awardTitle = Request["awardTitle"];
-
-            var userLogic = DependencyResolver.UserLogic;
-
-            userLogic.AddAwards(targetid, addableIds);
-
-            result = "Success";
         }
         else if (selected == "usersToAward")
         {
-            selectedUser = "none";
-            selectedAward = "none";
-            selectedAwards = "none";
+            selectedUser = string.Empty;
+            selectedUsers = "selected";
 
-            int targetid = int.Parse(Request["awardId"]);
-
-            var ids = Request["usersIds"].Split(',');
-            int[] addableIds = new int[ids.Length];
-            for (int i = 0; i < ids.Length; i++)
+            if (int.TryParse(Request["awardId"], out int targetid))
             {
-                if (int.TryParse(ids[i], out addableIds[i]))
+                var ids = Request["usersIds"].Split(',');
+                int[] addableIds = new int[ids.Length];
+                for (int i = 0; i < ids.Length; i++)
                 {
-                    continue;
+                    if (int.TryParse(ids[i], out addableIds[i]))
+                    {
+                        continue;
+                    }
+                }
+
+                if (addableIds.Length > 0) {
+                    var awardLogic = DependencyResolver.AwardLogic;
+
+                    awardLogic.AddUsers(targetid, addableIds);
+
+                    result = "Success";
                 }
             }
-
-            awardTitle = Request["awardTitle"];
-
-            var awardLogic = DependencyResolver.AwardLogic;
-
-            awardLogic.AddUsers(targetid, addableIds);
-
-            result = "Success";
         }
     }
 }
@@ -176,17 +171,17 @@
     </div>
     <div class="add award" style="display:@(selectedAward==string.Empty ? "none" : "")" id="addAward">
         <label>Adds award with specified title</label>
-        <input type="text" id="addAwardTitle" name="awardTitle" value"=@awardTitle" />
+        <input type="text" id="addAwardTitle" name="awardTitle" value="@awardTitle" />
         <label for="addAwardTitle">Title</label>
     </div>
-    <div class="add awardsToUser" id="addAwardsToUser" style="display:@(selectedAward==string.Empty ? "none" : "")">
+    <div class="add awardsToUser" id="addAwardsToUser" style="display:@(selectedAwards==string.Empty ? "none" : "")">
         <label>Adds awards to user with specified id</label>
         <input type="text" id="userId" name="userId" value="@userId" />
         <label for="userId">User's id.</label>
         <input type="text" id="awardsIds" name="awardsIds" value="@awardsIds" />
         <label for="awardsIds">Awards' ids.</label>
     </div>
-    <div class="add usersToAward" id="addUsersToAward" style="display:@(selectedAward==string.Empty ? "none" : "")">
+    <div class="add usersToAward" id="addUsersToAward" style="display:@(selectedUsers==string.Empty ? "none" : "")">
         <label>Adds users to award with specified id</label>
         <input type="text" id="awardId" name="awardId" value="@awardId" />
         <label for="awardId">Award's id.</label>
@@ -195,12 +190,12 @@
     </div>
     <input type="file" id="Image" name="Image" value=@targetImage />
     <label for="userImage">Change image</label>
-    <input type="submit" id="submit">Submit</input>
+    <input type="submit" id="submit" value="Submit" />
 </form>
 <div id="result">@result</div>
 
-<script src="~/Scripts/jquery-3.0.0.js"></script>
-<script src="~/Scripts/bootstrap.js"></script>
+<script src="/Scripts/jquery-3.0.0.js"></script>
+<script src="/Scripts/bootstrap.js"></script>
 
 <script>
     $("#selectEntity").change(function () {

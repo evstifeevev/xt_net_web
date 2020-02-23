@@ -45,13 +45,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Task 11 Databases\Task 11 Databases\Task 11.DAL\Task 11.DAL.csproj">
+      <Project>{1c417b26-a553-48b8-9bd9-2c5e29d7d151}</Project>
+      <Name>Task 11.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BLL\Task6.BLL.csproj">
       <Project>{8cb2a84d-c46f-4d0f-a665-78367e16a582}</Project>
       <Name>Task6.BLL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DAO\Task6.DAL.csproj">
-      <Project>{13190932-6b11-4d1c-b7e9-54d2d76e1add}</Project>
-      <Name>Task6.DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Interfaces\Task6.Interfaces.csproj">
       <Project>{c3cc360c-1031-4951-b0e6-398260885364}</Project>

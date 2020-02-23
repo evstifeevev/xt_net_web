@@ -4,19 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Task6.Interfaces;
-using Task6.DAL;
+//using Task6.DAL;
 using Task6.BLL;
+using Task_11.DAL;
 
 namespace Task6.InversionOfControl
 {
 	// Singlton pattern realization. There is only one instance of Dao classes and Logic classes.
     public static class DependencyResolver
     {
+		// Choose depending on the desired DAL realization
+		//private static IUserDaoInterface _userDao;
+
+		//public static IUserDaoInterface UserDao
+		//{
+		//	get { return _userDao?? (_userDao = new UserDao()); }
+		//}
+
 		private static IUserDaoInterface _userDao;
 
 		public static IUserDaoInterface UserDao
 		{
-			get { return _userDao?? (_userDao = new UserDao()); }
+			get { return _userDao ?? (_userDao = new UserDao()); }
 		}
 
 		private static IUserLogicInterface _userLogic;

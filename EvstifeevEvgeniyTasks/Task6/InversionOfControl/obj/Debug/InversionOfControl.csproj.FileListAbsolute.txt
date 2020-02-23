@@ -16,15 +16,15 @@ K:\Task6 Copies\Task6\InversionOfControl\obj\Debug\InversionOfControl.pdb
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\InversionOfControl.dll
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\InversionOfControl.pdb
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\BLL.dll
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\DAO.dll
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\Interfaces.dll
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\Entities.dll
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\Newtonsoft.Json.dll
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\BLL.pdb
-K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\DAO.pdb
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\Interfaces.pdb
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\Entities.pdb
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\obj\Debug\InversionOfControl.csprojAssemblyReference.cache
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\obj\Debug\InversionOfControl.csproj.CopyComplete
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\obj\Debug\InversionOfControl.dll
 K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\obj\Debug\InversionOfControl.pdb
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\Task 11.DAL.dll
+K:\xt_net_web\EvstifeevEvgeniyTasks\Task6\InversionOfControl\bin\Debug\Task 11.DAL.pdb

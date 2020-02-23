@@ -5,7 +5,6 @@
     Layout = "~/Layouts/_MainLayout.cshtml";
     Page.Title = "Get data";
 
-    //List<string> result = new List<string>();
     string result = string.Empty;
     var users = new List<User>();
     var awards = new List<Award>();
@@ -89,7 +88,7 @@
     @foreach (var item in users)
     {
         <div imageWrapper>
-            <img src="@(item.ImageLink != "" ? item.ImageLink : "/Images/default.jpg")" width="50px" />
+            <img src="@(item.ImageLink != "" ? item.ImageLink : "/Images/default.jpg")" style="width: 50px" />
         </div>
         <p>
             @if (User.IsInRole("admin"))
@@ -125,7 +124,7 @@
         foreach (var item in awards)
         {
             <div imageWrapper>
-                <img src="@(item.ImageLink != "" ? item.ImageLink : "/Images/default.jpg")" width="50px" />
+                <img src="@(item.ImageLink != "" ? item.ImageLink : "/Images/default.jpg")" style="width: 50px" />
                 &nbsp;
             </div>
 

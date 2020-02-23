@@ -1,6 +1,5 @@
 ﻿@using Task6.InversionOfControl;
 @using Task6.Entities;
-@using Task6.Interfaces
 @{
     if (!User.IsInRole("admin"))
     {
@@ -9,13 +8,12 @@
     Layout = "~/Layouts/_MainLayout.cshtml";
     Page.Title = "Edit data";
     string selectedAward = string.Empty;
-    string selectedAwards = string.Empty;
-    string selectedUsers = string.Empty;
+    string selectedUser = "selected";
     string userImage = string.Empty;
     string awardImage = string.Empty;
     string targetId = string.Empty;
     WebImage targetImage = null;
-    string selectedUser = "selected";
+
     string result = "failed";
     string userName = string.Empty;
     string awardTitle = string.Empty;
@@ -30,77 +28,69 @@
     if (IsPost)
     {
         var selected = Request["type of entity"];
-
-        var id = int.Parse(Request["targetId"]);
-
-        if (selected == "user")
+        if (selected == "award")
         {
-            selectedAward = "none";
-            selectedUsers = "none";
-            selectedAwards = "none";
-
-            //userName = Request["userName"];
-
-
-            //dateOfBirth = DateTime.Parse(Request["dateOfBirth"]);
-
-            //userImage = Request["user Image"];
-
-            var userLogic = DependencyResolver.UserLogic;
-
-            if (DateTime.TryParse(Request["dateOfBirth"], out dateOfBirth))
-            {
-                userLogic.ChangeDateOfBirth(id, dateOfBirth);
-            }
-
-            if (Request["userName"] != null && Request["userName"] != "")
-            {
-                userName = Request["userName"];
-                userLogic.ChangeName(id, userName);
-            }
-
-            var photo = WebImage.GetImageFromRequest();
-            if (photo != null)
-            {
-                targetImage = photo;
-                var newfilename = Guid.NewGuid().ToString() + "_" +
-                    Path.GetFileName(photo.FileName);
-                var imagePath = @"~\images\" + newfilename;
-                userLogic.ChangeImageLink(id, @"\Images\" + newfilename);
-                photo.Save(imagePath);
-            }
-
-            //userLogic.ChangeImageLink(id, userImage);
-
-            result = "Success";
+            selectedUser = string.Empty;
+            selectedAward = "selected";
         }
-        else if (selected == "award")
+        if (int.TryParse(Request["targetId"], out int id))
         {
-            selectedUser = "none";
-            selectedUsers = "none";
-            selectedAwards = "none";
 
 
 
-            var awardLogic = DependencyResolver.AwardLogic;
-
-            if (Request["awardTitle"] != null && Request["awardTitle"] != "")
+            if (selected == "user")
             {
-                awardTitle = Request["awardTitle"];
-                awardLogic.ChangeTitle(id, awardTitle);
-            }
+                var userLogic = DependencyResolver.UserLogic;
 
-            var photo = WebImage.GetImageFromRequest();
-            if (photo != null)
+                if (DateTime.TryParse(Request["dateOfBirth"], out dateOfBirth))
+                {
+                    userLogic.ChangeDateOfBirth(id, dateOfBirth);
+                }
+
+                if (Request["userName"] != null && Request["userName"] != "")
+                {
+                    userName = Request["userName"];
+                    userLogic.ChangeName(id, userName);
+                }
+
+                var photo = WebImage.GetImageFromRequest();
+                if (photo != null)
+                {
+                    targetImage = photo;
+                    var newfilename = Guid.NewGuid().ToString() + "_" +
+                        Path.GetFileName(photo.FileName);
+                    var imagePath = @"~\images\" + newfilename;
+                    userLogic.ChangeImageLink(id, @"\Images\" + newfilename);
+                    photo.Save(imagePath);
+                }
+
+                result = "Success";
+            }
+            else if (selected == "award")
             {
-                var newfilename = Guid.NewGuid().ToString() + "_" +
-                    Path.GetFileName(photo.FileName);
-                var imagePath = @"~\images\" + newfilename;
-                awardLogic.ChangeImageLink(id, "/Images/" + newfilename);
-                photo.Save(imagePath);
-            }
+                selectedUser = string.Empty;
+                selectedAward = "selected";
 
-            result = "Success";
+                var awardLogic = DependencyResolver.AwardLogic;
+
+                if (Request["awardTitle"] != null && Request["awardTitle"] != "")
+                {
+                    awardTitle = Request["awardTitle"];
+                    awardLogic.ChangeTitle(id, awardTitle);
+                }
+
+                var photo = WebImage.GetImageFromRequest();
+                if (photo != null)
+                {
+                    var newfilename = Guid.NewGuid().ToString() + "_" +
+                        Path.GetFileName(photo.FileName);
+                    var imagePath = @"~\images\" + newfilename;
+                    awardLogic.ChangeImageLink(id, "/Images/" + newfilename);
+                    photo.Save(imagePath);
+                }
+
+                result = "Success";
+            }
         }
     }
 }
@@ -132,9 +122,7 @@
     </div>
     <input type="file" id="userImage" name="Image" value=@targetImage />
     <label for="userImage">Change image</label>
-    @*<input type="file" id="awardImage" name="Image" value=@awardImage />
-        <label for="userImage">Change award's image</label>*@
-    <input type="submit" id="submit">Submit</input>
+    <input type="submit" id="submit" value="Submit">
 </form>
 <div id="result">@result</div>
 

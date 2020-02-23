@@ -9,6 +9,11 @@
     Layout = "~/Layouts/_MainLayout.cshtml";
     Page.Title = "Remove data";
 
+    var selectedUser = string.Empty;
+    var selectedAward = string.Empty;
+    var selectedAwards = string.Empty;
+    var selectedUsers = string.Empty;
+
     string result = "failed";
     if (Request.QueryString["isSuccessful"] != null)
     {
@@ -16,33 +21,55 @@
     }
     int id = 0;
     string ids = "0";
+
+    var selected = Request["type of entity"];
+    if (selected == "user")
+    {
+        selectedUser = "selected";
+    }
+    else if (selected == "award")
+    {
+        selectedAward = "selected";
+    }
+    else if (selected == "awards")
+    {
+        selectedAwards = "selected";
+    }
+    else if (selected == "users")
+    {
+        selectedUsers = "selected";
+    }
     if (IsPost)
     {
-        var selected = Request["type of entity"];
-
         if (int.TryParse(Request["id"], out id))
         {
             if (selected == "user")
             {
+
                 var userLogic = DependencyResolver.UserLogic;
+                if (userLogic.GetById(id) != null)
+                {
+                    userLogic.Remove(id);
 
-                userLogic.Remove(id);
-
-                result = "Success";
+                    result = "Success";
+                }
             }
             else if (selected == "award")
             {
+
                 var userLogic = DependencyResolver.UserLogic;
                 var awardLogic = DependencyResolver.AwardLogic;
-
-                if (!userLogic.GetAll().Any(user => user.Awards.Contains(awardLogic.GetById(id))))
+                if (awardLogic.GetById(id) != null)
                 {
-                    awardLogic.Remove(id);
-                    result = "Success";
-                }
-                else
-                {
-                    Response.Redirect("~/Pages/removeAwardFromAllUsers.cshtml?id=" + id);
+                    if (!userLogic.GetAll().Any(user => user.Awards.Contains(awardLogic.GetById(id))))
+                    {
+                        awardLogic.Remove(id);
+                        result = "Success";
+                    }
+                    else
+                    {
+                        Response.Redirect("~/Pages/removeAwardFromAllUsers.cshtml?id=" + id);
+                    }
                 }
             }
             else if (selected == "awards")
@@ -59,14 +86,19 @@
                     }
                 }
 
-                var userLogic = DependencyResolver.UserLogic;
+                if (removableIds.Length > 0)
+                {
+                    var userLogic = DependencyResolver.UserLogic;
 
-                userLogic.RemoveAwards(id, removableIds);
+                    userLogic.RemoveAwards(id, removableIds);
 
-                result = "Success";
+                    result = "Success";
+                }
+
             }
             else if (selected == "users")
             {
+
                 ids = Request["Ids"];
                 var requestedIds = Request["Ids"].Split(',');
                 int[] removableIds = new int[requestedIds.Length];
@@ -79,36 +111,40 @@
                     }
                 }
 
-                var awardLogic = DependencyResolver.AwardLogic;
+                if (removableIds.Length > 0)
+                {
+                    var awardLogic = DependencyResolver.AwardLogic;
 
-                awardLogic.RemoveUsers(id, removableIds);
+                    awardLogic.RemoveUsers(id, removableIds);
 
-                result = "Success";
+                    result = "Success";
+                }
+
             }
         }
 
-
     }
+    string displayIds = selectedUsers != string.Empty || selectedAwards != string.Empty ? "block" : "none";
 }
 
 <form action="~/Pages/remove.cshtml" method="post">
     <div class="getOptions" id="getOptions">
         <label>Choose the entity.</label>
         <select name="type of entity" id="selectEntity">
-            <option value="user">User</option>
-            <option value="award">Award</option>
-            <option value="users">Users from award</option>
-            <option value="awards">Awards from user</option>
+            <option value="user" @selectedUser>User</option>
+            <option value="award" @selectedAward>Award</option>
+            <option value="users" @selectedUsers>Users from award</option>
+            <option value="awards" @selectedAwards>Awards from user</option>
         </select>
     </div>
     <div class="input id wrapper">
         <label>Removes item with specified id</label>
         <input type="text" id="id" name="id" value=@id />
         <label for="id">Id</label>
-        <input style="display:none" type="text" id="ids" name="ids" value=@ids />
-        <label style="display:none" for="ids" id="labelIds">Ids</label>
+        <input style="display:@displayIds" type="text" id="ids" name="ids" value=@ids />
+        <label style="display:@displayIds" for="ids" id="labelIds">Ids</label>
     </div>
-    <input type="submit" id="submit">Submit</input>
+    <input type="submit" id="submit" value="Submit" />
 </form>
 <div id="result">@result</div>
 <script src="~/Scripts/jquery-3.0.0.js"></script>

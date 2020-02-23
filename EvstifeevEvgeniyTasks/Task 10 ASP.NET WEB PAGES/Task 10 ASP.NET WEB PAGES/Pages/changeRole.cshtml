@@ -9,14 +9,12 @@
     Layout = "~/Layouts/_MainLayout.cshtml";
     Page.Title = "Change administrative role";
 
-    //List<string> result = new List<string>();
     string username = string.Empty;
     bool isNotFound = false;
     bool isWrongName = false;
     bool isOwnName = false;
     bool isChangedSuccessfully = false;
 
-    string selected = "All";
     if (IsPost)
     {
         username = Request["username"];
